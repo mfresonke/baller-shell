@@ -5,10 +5,7 @@ extern YYSTYPE yylval;
 %}
 
 %%
-[0-9a-zA-Z]+		yylval=atoi(yytext); return NUMBER;
-heat		return TOK_HEAT;
-on|off		yylval=strcmp( "off", yytext ); return STATE;
-target		return TOK_TARGET;
-temperature	return TOK_TEMPERATURE;
-[\n \t]+	/* Ignore */
+[0-9a-zA-Z]+		yylval.string=strdup(yytext); return WORD;
+\|					return PIPE_NEXT;
+[\n \t]				/* Ignore Whitespace */
 %%

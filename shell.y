@@ -19,7 +19,7 @@ int main()
 
 %}
 
-%token PIPE_IN_FILE PIPE_IN_COMMAND PIPE_OUT_REPLACE PIPE_OUT_APPEND QUOTE BSLASH AND
+%token PIPE_NEXT
 
 %union
 {
@@ -27,33 +27,32 @@ int main()
 	char *string;
 }
 
-%token <
+%token <string> WORD
 
 %%
 
-commands: /* empty */
-	| commands command
+input: /* empty */
+	| command arguments meta
 	;
 
 command:
-	heat_switch
-	|
-	target_set
-	;
-
-heat_switch:
-	TOK_HEAT STATE
+	WORD
 	{
-		if($2)
-			printf("\tHeat turned on!\n");
-		else
-			printf("\tHeat turned off!\n");
+		printf( "Command is: %s\n", $1 );
 	}
 	;
 
-target_set:
-	TOK_TARGET TOK_TEMPERATURE NUMBER
+arguments:
+	| arguments argument
+	;
+
+argument:
+	WORD
 	{
-		printf("\tTemperature set to %d!\n", $3);
+		printf( "Argument is: %s\n", $1 );
 	}
+	;
+
+meta:
+	| PIPE_NEXT input
 	;
