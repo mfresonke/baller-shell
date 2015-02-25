@@ -2,3 +2,4 @@ lex.yy.c
 *.bin
 *.tab.c
 *.tab.h
+.DS_Store
