@@ -14,6 +14,7 @@ int yywrap()
 
 int main()
 {
+	//Set Up Paths!
 	yyparse();
 }
 
@@ -27,7 +28,9 @@ int main()
 	char *string;
 }
 
-%token <string> WORD
+%token <string> WORD 
+%token <string> ABS_PATH 
+%token <string> REL_PATH 
 
 %%
 
@@ -38,7 +41,15 @@ input: /* empty */
 command:
 	WORD
 	{
-		printf( "Command is: %s\n", $1 );
+		printf( "Command is in path.");
+	}
+	| ABS_PATH
+	{
+		printf( "Command stands on its own.");
+	}
+	| REL_PATH
+	{
+		printf( "Command is relative" );
 	}
 	;
 
