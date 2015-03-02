@@ -1,6 +1,7 @@
 %{
 #include <stdio.h>
 #include <string.h>
+#include "main.h"
 
 void yyerror( const char *str )
 {
@@ -43,13 +44,13 @@ command:
 	{
 		printf( "Command is in path.");
 	}
-	| ABS_PATH
+	| ABS_PATH 
 	{
-		printf( "Command stands on its own.");
+
 	}
 	| REL_PATH
 	{
-		printf( "Command is relative" );
+		printf( "\"%s\" is a relative path.", $1 );
 	}
 	;
 
