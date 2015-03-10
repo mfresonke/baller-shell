@@ -1,7 +1,9 @@
 %{
 #include <stdio.h>
 #include <string.h>
-#include "main.h"
+#include <unistd.h>
+#include "helpers.h"
+#include "builtins.h"
 
 void yyerror( const char *str )
 {
@@ -19,9 +21,10 @@ int main()
 	yyparse();
 }
 
+
 %}
 
-%token PIPE_NEXT
+%token PIPE_NEXT NEW_LINE
 
 %union
 {
@@ -36,21 +39,24 @@ int main()
 %%
 
 input: /* empty */
-	| command arguments meta
+	| command arguments meta command_end input
+	{
+		
+	}
 	;
 
 command:
-	WORD
+	WORD	//path command
 	{
-		printf( "Command is in path.");
+		set_command( PATH, $1 );
 	}
 	| ABS_PATH 
 	{
-
+		set_command( ABSOLUTE, $1 );
 	}
 	| REL_PATH
 	{
-		printf( "\"%s\" is a relative path.", $1 );
+		set_command( RELATIVE, $1 );
 	}
 	;
 
@@ -61,7 +67,14 @@ arguments:
 argument:
 	WORD
 	{
-		printf( "Argument is: %s\n", $1 );
+		add_arg( $1 );
+	}
+	;
+
+command_end:
+	NEW_LINE
+	{
+		run_command();
 	}
 	;
 

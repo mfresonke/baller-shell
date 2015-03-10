@@ -10,5 +10,5 @@ extern YYSTYPE yylval;
 \/[0-9a-zA-Z\/\.\-]+		yylval.string=strdup(yytext); return ABS_PATH; 
 \|						return PIPE_NEXT;
 [ \t]+				/* Ignore Whitespace */
-\n
+\n 					return NEW_LINE;
 %%
