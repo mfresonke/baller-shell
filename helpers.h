@@ -19,6 +19,9 @@ extern char *command_abs_path;			//set to abs path of command to run
 extern char *command_args[MAX_ARGS];	//set to args of command to run
 extern size_t num_of_args;				//keeps track of number of command args
 
+/** Prints the prompt before a command is entered. */
+void print_prompt();
+
 /** Uses the command type and command to set the command_path var correctly, and to fill in the first element of command_args */
 void set_command( enum CommandType type, char *command );
 

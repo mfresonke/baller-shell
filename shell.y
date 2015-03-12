@@ -17,7 +17,7 @@ int yywrap()
 
 int main()
 {
-	//Set Up Paths!
+	print_prompt();
 	yyparse();
 }
 
@@ -40,9 +40,6 @@ int main()
 
 input: /* empty */
 	| command arguments meta command_end input
-	{
-		
-	}
 	;
 
 command:
@@ -75,6 +72,7 @@ command_end:
 	NEW_LINE
 	{
 		run_command();
+		print_prompt();
 	}
 	;
 

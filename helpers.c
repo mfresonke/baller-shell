@@ -6,6 +6,10 @@ char *command_args[MAX_ARGS] = { NULL };
 size_t num_of_args = 0;
 enum CommandType command_type;
 
+void print_prompt()
+{
+	printf("bs > ");
+}
 
 void set_command( enum CommandType type, char *command )
 {
