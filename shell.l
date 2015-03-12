@@ -11,7 +11,7 @@ char* str_filter( char *str );
 WORD	[0-9a-zA-Z\.\-,] 
 FILE_CHARS	[\/]
 %%
-\"({WORD}*[ \n]*)*\"				yylval.string=str_filter(strdup(yytext)); return WORD;
+\"({WORD}*[ \n]*"\\\n"*)*\"				yylval.string=str_filter(strdup(yytext)); return WORD;
 {WORD}+							yylval.string=strdup(yytext); return WORD;
 \.({WORD}*{FILE_CHARS}*)+		yylval.string=strdup(yytext); return REL_PATH;
 \/({WORD}*{FILE_CHARS}*)+		yylval.string=strdup(yytext); return ABS_PATH; 
