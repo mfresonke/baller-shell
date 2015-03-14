@@ -34,4 +34,5 @@ void clear_command();
 /** Adds an argument to the command_args var. */
 void add_arg( char *arg );
 
+
 #endif
