@@ -2,8 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
-#include "helpers.h"
+#include "commands.h"
 #include "builtins.h"
+
+extern int yyparse();
 
 void yyerror( const char *str )
 {
@@ -15,10 +17,26 @@ int yywrap()
 	return 1;
 }
 
+void print_prompt()
+{
+	printf("bs > ");
+}
+
 int main()
 {
-	print_prompt();
-	yyparse();
+	for(;;) 
+	{
+		print_prompt();
+		switch( yyparse() )
+		{
+			case 1:
+				run_commands();
+				clear_commands();
+				break;
+			default:;
+				//check for errors here
+		}
+	}
 }
 
 
@@ -39,21 +57,21 @@ int main()
 %%
 
 input: /* empty */
-	| command arguments meta command_end input
+	| command arguments pipe command_end
 	;
 
 command:
 	WORD	//path command
 	{
-		set_command( PATH, $1 );
+		new_command( PATH, $1 );
 	}
 	| ABS_PATH 
 	{
-		set_command( ABSOLUTE, $1 );
+		new_command( ABSOLUTE, $1 );
 	}
 	| REL_PATH
 	{
-		set_command( RELATIVE, $1 );
+		new_command( RELATIVE, $1 );
 	}
 	;
 
@@ -68,14 +86,13 @@ argument:
 	}
 	;
 
+pipe:
+	| PIPE_NEXT command arguments pipe
+	;
+
 command_end:
 	NEW_LINE
 	{
-		run_command();
-		print_prompt();
+		return 1;
 	}
-	;
-
-meta:
-	| PIPE_NEXT input
 	;
