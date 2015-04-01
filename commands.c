@@ -80,28 +80,24 @@ void run_commands()
 			//if only one command...
 			if ( command_end == command_start )
 			{
-				printf("Running Regular Command." );
 				//no command to command pipes to set up.
 			}
 			//if a set of piped commands...
 			else if( command_curr == command_start )
 			{
-				printf("closing standard out for %s", command_abs_path );
 				// only set standard out
-				dup2( 1, pipes_send[1] );
+				dup2( pipes_send[1], STDOUT_FILENO );
 			}
 			else if( command_curr == command_end )
 			{
-				printf("closing standard in for %s", command_abs_path );
 				//only set standard in
-				dup2( 0, pipes_recieve[0] );
+				dup2( pipes_recieve[0], STDIN_FILENO );
 			}
 			else //if in the middle of a chain of piped commands...
 			{
-				printf("Running middle command" );
 				//set both standard in & out.
-				dup2( 0, pipes_recieve[0] );
-				dup2( 1, pipes_send[1] );
+				dup2( pipes_recieve[0], STDIN_FILENO );
+				dup2( pipes_send[1], STDOUT_FILENO );
 			}
 			int exit_code = execv(command_abs_path, command_args);
 			printf( "Execution failed with exit code: %d\n", exit_code );
@@ -111,13 +107,14 @@ void run_commands()
 		pipes_recieve[1] = pipes_send[1];
 	}
 
-	//wait n times
+	/*wait n times
 	command_curr = command_start;
 	while( command_curr )
 	{
 		wait( &status );
 		command_curr = command_curr->next;
 	}
+	*/
 	
 }
 
