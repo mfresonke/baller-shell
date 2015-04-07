@@ -20,6 +20,20 @@ char* str_filter( char *str )
 	return str;
 }
 
+char* combine_dir_and_file( char *dir, char *file )
+{
+	size_t length_dir = strlen( dir );
+	size_t length_file = strlen( file );
+	// +2 due to 1 char for the '/', and another for the null char (\0)
+	size_t length_total = length_dir + length_file + 2;
+	char *new_str = malloc( length_total * sizeof(char) );
+	strncpy( new_str, dir, length_dir );
+	strcat( new_str, "/" );
+	strcat( new_str, file );
+
+	return new_str;
+}
+
 char* word_to_rel_path( char *word )
 {
 	size_t length_word = strlen( word );

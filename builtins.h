@@ -11,6 +11,7 @@
 #include "string_manipulation.h"
 #include "errors.h"
 
+
 /* ========== CD ========== */
 /** The main cd command can take in a relative path, or an absolute path. You must call its helper functions to take in anything else. */
 void cd( char *dir );

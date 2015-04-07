@@ -25,6 +25,9 @@ void print_prompt()
 
 int main()
 {
+	//setup operations
+
+	//main loop
 	for(;;) 
 	{
 		print_prompt();
@@ -92,15 +95,15 @@ cd_args:
 command:
 	WORD	//path command
 	{
-		new_command( PATH, $1 );
+		new_command_path( $1 );
 	}
 	| PATH_ABS 
 	{
-		new_command( ABSOLUTE, $1 );
+		new_command_abs( $1 );
 	}
 	| PATH_REL
 	{
-		new_command( RELATIVE, $1 );
+		new_command_relative( $1 );
 	}
 	;
 
