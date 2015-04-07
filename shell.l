@@ -12,6 +12,7 @@ char* str_filter( char *str );
 WORD		[^ ^\n^\t]
 FILE_CHARS	[\/]
 %%
+&									return AND;
 \|									return PIPE_NEXT;
 [ \t]+								/* Ignore Whitespace */
 "\\\n"								/* Ignore escaped newline */

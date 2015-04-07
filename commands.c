@@ -2,9 +2,9 @@
 
 //Define Varaiables
 
-//SLL Pointers
 struct Command *command_start = NULL;
 struct Command *command_end = NULL;
+bool cmd_run_in_bkgrnd = false;
 
 void new_command( char *cmd_abs_path, char *invocation )
 {
@@ -135,7 +135,14 @@ void run_commands()
 		pipes_recieve[1] = pipes_send[1];
 	}
 
-	waitpid( pid, NULL, 0 );
+	if ( !cmd_run_in_bkgrnd )
+	{
+		waitpid( pid, NULL, 0 );
+	}
+	else
+	{
+		cmd_run_in_bkgrnd = false;
+	}
 	
 }
 

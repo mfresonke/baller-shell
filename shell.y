@@ -46,7 +46,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE BI_CD
+%token PIPE_NEXT NEW_LINE BI_CD AND
 
 %union
 {
@@ -133,6 +133,12 @@ pipe:
 command_end:
 	NEW_LINE
 	{
+		return 1;
+	}
+	| AND NEW_LINE
+	{
+		//set the flag to run the command(s) in the background
+		cmd_run_in_bkgrnd = true;
 		return 1;
 	}
 	;

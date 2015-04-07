@@ -18,6 +18,8 @@
 
 /** Runs all commands. */
 void run_commands();
+/** Determines if a set of commands will run in the background or foreground. */
+extern bool cmd_run_in_bkgrnd;
 
 /** SLL command structure. Has all the data needed for one command to run. */
 struct Command
