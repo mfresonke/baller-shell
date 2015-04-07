@@ -181,7 +181,7 @@ void clear_commands_helper( struct Command *curr )
 char* search_path( char *cmd )
 {
 	//get path from enviornment
-	char *path_raw = getenv( "PATH" );
+	char *path_raw = strdup( getenv( "PATH" ) );
 
 	//check that path exists.
 	if( !path_raw )
@@ -212,7 +212,6 @@ char* search_path( char *cmd )
 
 char* search_dir( char *abs_path, char *cmd )
 {
-	printf("Searching path %s for command %s!\n", abs_path, cmd );
 
 	//Open Directory for Reading
 	DIR *dir_ptr = opendir( abs_path );
