@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include "commands.h"
 #include "builtins.h"
+#include "string_manipulation.h"
 
 extern int yyparse();
 
@@ -19,7 +20,7 @@ int yywrap()
 
 void print_prompt()
 {
-	printf("bs > ");
+	printf("%s | bs > ", get_cd() );
 }
 
 int main()
@@ -42,7 +43,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE
+%token PIPE_NEXT NEW_LINE BI_CD
 
 %union
 {
@@ -51,25 +52,53 @@ int main()
 }
 
 %token <string> WORD 
-%token <string> ABS_PATH 
-%token <string> REL_PATH 
+%token <string> PATH_ABS 
+%token <string> PATH_REL 
 
 %%
 
 input: /* empty */
+	| builtin command_end
 	| command arguments pipe command_end
 	;
+
+/* Builtin Command Handling */
+
+builtin:
+	BI_CD cd_args
+	;
+
+cd_args:
+	  PATH_ABS
+	{
+		cd( $1 );
+	}
+	| PATH_REL
+	{
+		cd( $1 );
+	}
+	| WORD
+	{
+		cd_word( $1 );
+	}
+	| //Blank
+	{
+		cd_home();
+	}
+	;
+
+/* Generic Command Handling */
 
 command:
 	WORD	//path command
 	{
 		new_command( PATH, $1 );
 	}
-	| ABS_PATH 
+	| PATH_ABS 
 	{
 		new_command( ABSOLUTE, $1 );
 	}
-	| REL_PATH
+	| PATH_REL
 	{
 		new_command( RELATIVE, $1 );
 	}
@@ -84,10 +113,18 @@ argument:
 	{
 		add_arg( $1 );
 	}
+	| PATH_ABS 
+	{
+		add_arg( $1 );
+	}
+	| PATH_REL
+	{
+		add_arg( $1 );
+	}
 	;
 
 pipe:
-	| PIPE_NEXT command arguments pipe
+	| pipe PIPE_NEXT command arguments
 	;
 
 command_end:

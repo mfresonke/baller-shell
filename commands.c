@@ -1,12 +1,12 @@
 #include "commands.h"
 
 //Define Varaiables
-enum CommandType command_type;
+enum ArgType command_type;
 //SLL Pointers
 struct Command *command_start = NULL;
 struct Command *command_end = NULL;
 
-void new_command( enum CommandType type, char *command )
+void new_command( enum ArgType type, char *command )
 {
 	//Create new Command Struct
 	struct Command *new_command = malloc( sizeof(struct Command) );
@@ -39,7 +39,6 @@ void new_command( enum CommandType type, char *command )
 			command_end->command_abs_path = command;
 			break;
 		case RELATIVE:
-		case BUILTIN:
 		case PATH:
 			printf( "THAT COMMAND TYPE IS NOT YET IMPLEMENTED.\n");
 	}
@@ -47,8 +46,6 @@ void new_command( enum CommandType type, char *command )
 
 void run_commands()
 {
-	//used to wait later.
-	int status;
 
 	//Now we need to fork an arbitrary number of times.
 	struct Command *command_curr = command_start;
@@ -74,6 +71,8 @@ void run_commands()
 		else if( pid < 0 )	//if parent and error forking
 		{
 			//TODO handle error case here
+			printf( "Error forking process!" );
+			break;
 		}
 		else if( pid == 0 )	//if child
 		{
@@ -101,21 +100,14 @@ void run_commands()
 			}
 			int exit_code = execv(command_abs_path, command_args);
 			printf( "Execution failed with exit code: %d\n", exit_code );
+			break;
 		}
 		//Move the pipes over to set up for the next iteration
 		pipes_recieve[0] = pipes_send[0];
 		pipes_recieve[1] = pipes_send[1];
 	}
-
-	/*wait n times
-	command_curr = command_start;
-	while( command_curr )
-	{
-		wait( &status );
-		command_curr = command_curr->next;
-	}
-	*/
-	
+	//wait on the last process to finish!
+	wait( NULL );
 }
 
 void add_arg( char *arg ) 

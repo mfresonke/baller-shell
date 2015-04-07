@@ -14,11 +14,10 @@
 /** Runs all commands. */
 void run_commands();
 
-enum CommandType
+enum ArgType
 {
 	ABSOLUTE,
 	RELATIVE,
-	BUILTIN,
 	PATH
 };
 
@@ -38,7 +37,7 @@ extern struct Command *command_end;
 /* ============ Begin Command Creation/Deletion Operations ============ */
 
 /** Adds a new command to linked list. Automatically links previous Command. Uses the command type and command to set the command_path var correctly, and to fill in the first element of command_args. */
-void new_command( enum CommandType type, char *command );
+void new_command( enum ArgType type, char *command );
 
 
 /* ============ Begin command_end Operations ============ */
