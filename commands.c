@@ -41,7 +41,8 @@ void new_command_abs( char *cmd )
 }
 void new_command_relative( char *cmd )
 {
-	printf("That command is not yet implemented!");
+	char *cmd_abs_path = path_rel_to_abs( cmd );
+	new_command( cmd_abs_path, cmd );
 }
 void new_command_path( char *cmd )
 {
@@ -62,7 +63,7 @@ void new_command_path( char *cmd )
 
 void run_commands()
 {
-
+	pid_t pid = -1;
 	//Now we need to fork an arbitrary number of times.
 	struct Command *command_curr = command_start;
 	while( command_curr )
@@ -78,10 +79,17 @@ void run_commands()
 		char **command_args = command_curr->command_args;
 
 		//Do The Forking!
-		pid_t pid = fork();
+		pid = fork();
 
 		if( pid > 0 )		//if parent process
-		{
+		{	
+			if( command_curr != command_start )
+			{
+				close( pipes_recieve[1] );
+				close( pipes_recieve[0] );
+			}
+
+			//advance the pointer
 			command_curr = command_curr->next;
 		}
 		else if( pid < 0 )	//if parent and error forking
@@ -102,17 +110,21 @@ void run_commands()
 			{
 				// only set standard out
 				dup2( pipes_send[1], STDOUT_FILENO );
+				close( pipes_send[0] );
 			}
 			else if( command_curr == command_end )
 			{
 				//only set standard in
 				dup2( pipes_recieve[0], STDIN_FILENO );
+				close( pipes_recieve[1] );
 			}
 			else //if in the middle of a chain of piped commands...
 			{
 				//set both standard in & out.
 				dup2( pipes_recieve[0], STDIN_FILENO );
 				dup2( pipes_send[1], STDOUT_FILENO );
+				close( pipes_send[0] );
+				close( pipes_recieve[1] );
 			}
 			int exit_code = execv(command_abs_path, command_args);
 			printf( "Execution failed with exit code: %d\n", exit_code );
@@ -122,8 +134,9 @@ void run_commands()
 		pipes_recieve[0] = pipes_send[0];
 		pipes_recieve[1] = pipes_send[1];
 	}
-	//wait on the last process to finish!
-	wait( NULL );
+
+	waitpid( pid, NULL, 0 );
+	
 }
 
 void add_arg( char *arg ) 

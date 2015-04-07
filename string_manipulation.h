@@ -17,7 +17,7 @@ char* combine_dir_and_file( char *dir, char *file );
 /** Takes a word, and appends "./" in order to turn it into a relative path. */
 char* word_to_rel_path( char *word );
 
-//Currently Unnecessary.
+/** Takes a relative path, and turns it into a (crappy) absolute path that exec will understand. */
 char* path_rel_to_abs( char *path_rel );
 
 #endif
