@@ -53,6 +53,25 @@ void printenv()
 	}
 }
 
+void set_env( char *vname, char *value )
+{
+
+	if( setenv( vname, value, 1 ) < 0 )
+	{
+		error_set_environment_variable( vname );
+		return;
+	}
+}
+
+void un_setenv( char *vname )
+{
+	if( unsetenv( vname ) < 0 )
+	{
+		error_unset_environment_variable( vname );
+		return;
+	}
+}
+
 char* get_cd()
 {
 	return strdup( getenv( "PWD" ) );

@@ -27,7 +27,11 @@ void cd_word( char *word );
 
 /** Prints all of the environment variables in the form variable=value */
 void printenv();
-
+/** Adds the variable name to the environment with a value if the variable does not exist. If it exists, update
+ **  variable with new value. */
+void set_env( char *vname, char *value );
+/** Unsets an environment variable by name so it no longer exists*/
+void un_setenv( char *vname );
 
 char* get_cd();
 
