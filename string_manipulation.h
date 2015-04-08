@@ -11,6 +11,8 @@
 /** Current Main Filter for Strings with Quotes */
 char* str_filter( char *str );
 
+void print_string_elements( char *str );
+
 /** Combines a directory (e.g. /bin) with a filename (e.g. echo) to create a full absolute path. (e.g /bin/echo) */
 char* combine_dir_and_file( char *dir, char *file );
 

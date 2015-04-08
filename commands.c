@@ -232,7 +232,6 @@ char* search_path( char *cmd )
 
 char* search_dir( char *abs_path, char *cmd )
 {
-
 	//Open Directory for Reading
 	DIR *dir_ptr = opendir( abs_path );
 	//Check that directory is valid

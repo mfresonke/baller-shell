@@ -20,13 +20,24 @@ char* str_filter( char *str )
 	return str;
 }
 
+void print_string_elements( char *str )
+{
+	printf("Printing string: %s\n", str);
+	while( *str  )
+	{
+		printf("%c ", *str);
+		++str;
+	}
+	printf("\n");
+}
+
 char* combine_dir_and_file( char *dir, char *file )
 {
 	size_t length_dir = strlen( dir );
 	size_t length_file = strlen( file );
 	// +2 due to 1 char for the '/', and another for the null char (\0)
 	size_t length_total = length_dir + length_file + 2;
-	char *new_str = malloc( length_total * sizeof(char) );
+	char *new_str = calloc( length_total, sizeof(char) );
 	strncpy( new_str, dir, length_dir );
 	strcat( new_str, "/" );
 	strcat( new_str, file );
@@ -38,7 +49,7 @@ char* word_to_rel_path( char *word )
 {
 	size_t length_word = strlen( word );
 	//make a new string of length 3, ( 2 for ./ + 1 for null char )
-	char *path_rel = malloc( ( length_word + 3 ) * sizeof( char ) );
+	char *path_rel = calloc( ( length_word + 3 ), sizeof( char ) );
 	strcpy( path_rel, "./" );
 	strcat( path_rel, word );
 
@@ -51,7 +62,7 @@ char* path_rel_to_abs( char *path_rel )
 	size_t pwd_size = strlen( pwd );
 	size_t path_rel_size = strlen( path_rel );
 
-	char *path_abs = malloc( ( pwd_size + path_rel_size ) * sizeof( char ) );
+	char *path_abs = calloc( ( pwd_size + path_rel_size ), sizeof( char ) );
 
 	//copy the current directory into newly allocated string.
 	strcpy( path_abs, pwd );
