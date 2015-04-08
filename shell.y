@@ -46,7 +46,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE
+%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV
 
 %union
 {
@@ -72,6 +72,18 @@ builtin:
 	| BI_BYE
 	{
 		exit(1);
+	}
+	| BI_PRINTENV
+	{
+		printenv();
+	}
+	| BI_SETENV
+	{
+
+	}
+	| BI_UNSETENV
+	{
+
 	}
 	;
 
