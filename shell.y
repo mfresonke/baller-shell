@@ -46,7 +46,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE BI_CD AND
+%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE
 
 %union
 {
@@ -69,6 +69,10 @@ input: /* empty */
 
 builtin:
 	BI_CD cd_args
+	| BI_BYE
+	{
+		exit(1);
+	}
 	;
 
 cd_args:
