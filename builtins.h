@@ -20,6 +20,7 @@ void cd_home();
 /** Changes the current directory based on a word instead of a path (e.g. 'output' ) */
 void cd_word( char *word );
 
+
 char* get_cd();
 
 #endif

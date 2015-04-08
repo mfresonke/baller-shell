@@ -18,6 +18,7 @@
 
 /** Runs all commands. */
 void run_commands();
+
 /** Determines if a set of commands will run in the background or foreground. */
 extern bool cmd_run_in_bkgrnd;
 
@@ -42,12 +43,11 @@ void new_command_abs( char *cmd );
 void new_command_relative( char *cmd );
 void new_command_path( char *cmd );
 
-
-/* ============ Begin command_end Operations ============ */
-
 /** Safely deletes all of the arguments and strings relating to the command. Leaves NULL Values. */
 void clear_commands();
 void clear_commands_helper( struct Command *curr );
+
+/* ============ Begin command_end Operation ============ */
 
 /** Adds an argument to the command_args var. */
 void add_arg( char *arg );

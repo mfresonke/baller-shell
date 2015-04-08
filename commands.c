@@ -135,8 +135,10 @@ void run_commands()
 		pipes_recieve[1] = pipes_send[1];
 	}
 
+	//If the user does NOT want the command to run in the background...
 	if ( !cmd_run_in_bkgrnd )
 	{
+		//then wait on your children!
 		waitpid( pid, NULL, 0 );
 	}
 	else
@@ -261,6 +263,7 @@ char* search_dir( char *abs_path, char *cmd )
 				free( filename_abs );
 			}
 		}
+		//iterates to the next file in the directory
 		dir_entry = readdir( dir_ptr );
 	}
 
@@ -275,8 +278,6 @@ bool is_file_valid( char *filename )
 
 	if ( stat( filename, &file_stat ) < 0 )
 	{
-		//char *error = strerror( errno );
-		//error_path_search( error );
 		return false;
 	}
 

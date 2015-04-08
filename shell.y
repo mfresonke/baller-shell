@@ -93,7 +93,7 @@ cd_args:
 /* Generic Command Handling */
 
 command:
-	WORD	//path command
+	WORD 	//path command
 	{
 		new_command_path( $1 );
 	}
@@ -127,6 +127,7 @@ argument:
 	;
 
 pipe:
+	//empty
 	| pipe PIPE_NEXT command arguments
 	;
 

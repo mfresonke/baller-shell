@@ -40,5 +40,5 @@ void cd_word( char *word )
 
 char* get_cd()
 {
-	return getenv( "PWD" );
+	return strdup( getenv( "PWD" ) );
 }
