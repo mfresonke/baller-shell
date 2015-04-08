@@ -18,6 +18,7 @@ FILE_CHARS	[\/]
 "\\\n"								/* Ignore escaped newline */
 \n 									return NEW_LINE;
 cd									return BI_CD;
+bye									return BI_BYE;
 \.\/({WORD})+						yylval.string=strdup(yytext); return PATH_REL;
 \/({WORD})+							yylval.string=strdup(yytext); return PATH_ABS; 
 \"({WORD}*[ \n]*"\\\n"*)*\"			yylval.string=str_filter(strdup(yytext));  return WORD;
