@@ -1,6 +1,7 @@
 #ifndef B_SHELL_COMMANDS_H
 #define B_SHELL_COMMANDS_H
 #define MAX_ARGS 100
+#define ERROR -34
 
 #include <stdlib.h>
 #include <stdio.h>

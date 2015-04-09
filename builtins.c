@@ -1,5 +1,7 @@
 #include "builtins.h"
 
+struct Alias *aliases[MAX_ALIASES];
+
 void cd( char *dir )
 {
 	//if dir is NULL (empty) then by default we go back to home.
@@ -38,7 +40,7 @@ void cd_word( char *word )
 	cd( path_rel );
 }
 
-void printenv()
+void env_print()
 {
 	//duplicate system environ variable
 	//for printing
@@ -53,7 +55,7 @@ void printenv()
 	}
 }
 
-void set_env( char *vname, char *value )
+void env_set( char *vname, char *value )
 {
 
 	if( setenv( vname, value, 1 ) < 0 )
@@ -63,7 +65,7 @@ void set_env( char *vname, char *value )
 	}
 }
 
-void un_setenv( char *vname )
+void env_unset( char *vname )
 {
 	if( unsetenv( vname ) < 0 )
 	{
@@ -74,5 +76,6 @@ void un_setenv( char *vname )
 
 char* get_cd()
 {
+	//TODO make this better
 	return strdup( getenv( "PWD" ) );
 }

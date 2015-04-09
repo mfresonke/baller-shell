@@ -306,40 +306,19 @@ bool is_file_valid( char *filename )
 
 void redirect_input_setup( char *file )
 {
-	/*
-	printf( "begin check on %s!", file );
-	if( access( file, F_OK ) < 0 )
-	{
-		error_redirect_input( "Input file does not exist." );
-		return;
-	}
-	else if( access( file, R_OK ) < 0 )
-	{
-		error_redirect_input( "Input file could not be read." );
-		return;
-	}
-	*/
-
-	/*
-
-	struct stat file_stat;
-
-	if ( stat( file, &file_stat ) < 0 )
-	{
-		error_redirect_input( "Input file does not exist." );
-	}
-
-	//determine if a valid type
-	if( S_ISREG( file_stat.st_mode ) ) //if it's just a regular file...
+	//Attempt to open the file to check if it exists/can be read.
+	FILE *file_exists = fopen( file, "r" );
+	if( file_exists )
 	{
 		file_input = file;
+		fclose( file_exists );
+		return;
 	}
-	*/
-
-	file_input = file;
-
 	//now that we know there are no errors, we set the global var.
-	//error_redirect_input( "Input file does not exist." );
+	file_input = NULL;
+	//TODO Check why (i.e. could be permission error)
+	error_redirect_input( "Input file does not exist." );
+	//return( ERROR );
 }
 
 void redirect_input_apply()

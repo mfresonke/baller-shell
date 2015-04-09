@@ -2,6 +2,7 @@
 #define B_SHELL_BUILTINS_H
 
 #define MAX_PATH_LENGTH 200
+#define MAX_ALIASES 100
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -23,16 +24,28 @@ void cd_home();
 /** Changes the current directory based on a word instead of a path (e.g. 'output' ) */
 void cd_word( char *word );
 
-/* ========= Begin Environment Structure =======*/
+/* ========= Begin Environment Structure ======= */
 
 /** Prints all of the environment variables in the form variable=value */
-void printenv();
+void env_print();
 /** Adds the variable name to the environment with a value if the variable does not exist. If it exists, update
  **  variable with new value. */
-void set_env( char *vname, char *value );
+void env_set( char *vname, char *value );
 /** Unsets an environment variable by name so it no longer exists*/
-void un_setenv( char *vname );
+void env_unset( char *vname );
 
 char* get_cd();
+
+/* ========= Begin Alias Structure ======= */
+
+struct Alias 
+{
+	char *name;
+	char *command;
+};
+
+extern struct Alias *aliases[MAX_ALIASES];
+
+void alias_set();
 
 #endif

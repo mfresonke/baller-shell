@@ -1,6 +1,8 @@
 %{
 #define SHELL_EXIT -5
+#define MAX_LINE_SIZE 1000
 
+#include "shell.lex.h"
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -24,6 +26,7 @@ int yywrap()
 void print_prompt()
 {
 	printf("%s | bs => ", get_cd() );
+	fflush(0);
 }
 
 int main()
@@ -34,6 +37,19 @@ int main()
 	for(;;) 
 	{
 		print_prompt();
+
+		//take in input to string
+		char input[MAX_LINE_SIZE];
+		if( !fgets( input, MAX_LINE_SIZE, stdin ) )
+		{
+			//error goes here
+		}
+
+		//search for aliases!
+
+		//pass string to lex
+		YY_BUFFER_STATE buffer = yy_scan_string ( input );
+
 		switch( yyparse() )
 		{
 			case 1:
@@ -48,6 +64,9 @@ int main()
 			default:;
 				//check for errors here
 		}
+
+		//delete buffer
+		yy_delete_buffer( buffer );
 	}
 }
 
@@ -55,7 +74,7 @@ int main()
 %}
 
 %token PIPE_NEXT NEW_LINE AND END_OF_FILE
-%token BI_CD BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV BI_ALIAS
+%token BI_CD BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV BI_SETALIAS
 %token REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE 
 
 %union
@@ -69,18 +88,45 @@ int main()
 %token <string> PATH_REL 
 
 %type <string> argument
-%type <string> redirection_input_arg
 
 %%
 
+
+/* Common to All Types */
+
 input:
-	END_OF_FILE
+	| builtin command_end
+	| command arguments pipe redirections command_end
+	| END_OF_FILE
 	{
 		exit(1);
 	}
-	| builtin command_end
-	| command arguments pipe redirections command_end
 	;
+
+command_end:
+	NEW_LINE
+	{
+		return 1;
+	}
+	| AND NEW_LINE
+	{
+		//set the flag to run the command(s) in the background
+		cmd_run_in_bkgrnd = true;
+		return 1;
+	}
+	| END_OF_FILE
+	{
+		return SHELL_EXIT;
+	}
+	;
+
+
+argument:
+	WORD
+	| PATH_ABS 
+	| PATH_REL
+	;
+
 
 /* Builtin Command Handling */
 
@@ -88,10 +134,11 @@ builtin:
 	cd
 	| bye
 	| environment
+	| alias
 	;
 
 cd:
-	  BI_CD PATH_ABS
+	BI_CD PATH_ABS
 	{
 		cd( $2 );
 	}
@@ -103,7 +150,7 @@ cd:
 	{
 		cd_word( $2 );
 	}
-	| //Blank
+	| BI_CD //no arg
 	{
 		cd_home();
 	}
@@ -119,25 +166,26 @@ bye:
 environment:
 	BI_PRINTENV
 	{
-		printenv();
+		env_print();
 	}
-	| BI_SETENV WORD WORD
+	| BI_SETENV WORD argument
 	{
-		set_env( $2, $3 );
-	}
-	| BI_SETENV WORD PATH_ABS
-	{
-		set_env( $2, $3 );
-	}
-	| BI_SETENV WORD PATH_REL
-	{
-		set_env( $2, $3 );
+		env_set( $2, $3 );
 	}
 	| BI_UNSETENV WORD
 	{
-		un_setenv( $2 );
+		env_unset( $2 );
 	}
 	;
+
+alias:
+	BI_SETALIAS WORD argument
+	{
+
+	}
+
+
+
 
 /* Generic Command Handling */
 
@@ -163,32 +211,22 @@ arguments:
 	}
 	;
 
-argument:
-	WORD
-	| PATH_ABS 
-	| PATH_REL
-	;
-
 pipe:
 	| pipe PIPE_NEXT command arguments
 	;
+
+/* Redirection Command Handling */
 
 redirections:
 	| redirection_input redirection_output_std redirection_output_err
 	;
 
 redirection_input:
-	REDIR_STDIN redirection_input_arg
+	REDIR_STDIN argument
 	{
 		redirect_input_setup( $2 );
 	}
 	;
-	
-redirection_input_arg:
-		WORD
-		| PATH_ABS
-		| PATH_REL
-		;
 
 redirection_output_std:
 	| REDIR_STDOUT_APPEND WORD
@@ -209,23 +247,5 @@ redirection_output_err:
 	| REDIR_STDERR_FILE WORD
 	{
 
-	}
-	;
-
-
-command_end:
-	NEW_LINE
-	{
-		return 1;
-	}
-	| AND NEW_LINE
-	{
-		//set the flag to run the command(s) in the background
-		cmd_run_in_bkgrnd = true;
-		return 1;
-	}
-	| END_OF_FILE
-	{
-		return SHELL_EXIT;
 	}
 	;
