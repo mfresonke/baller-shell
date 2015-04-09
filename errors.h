@@ -9,5 +9,6 @@
 void error_command_not_found( char *cmd );
 void error_directory_invalid();
 void error_path_search( char *reason );
+void error_redirect_input( char *reason );
 
 #endif

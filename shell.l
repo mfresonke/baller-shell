@@ -14,6 +14,12 @@ FILE_CHARS	[\/]
 %%
 &									return AND;
 \|									return PIPE_NEXT;
+\2\>\&1								return REDIR_STDERR_STDIN;
+\2\>								return REDIR_STDERR_FILE;
+\<									return REDIR_STDIN;
+\>\>								return REDIR_STDOUT_APPEND;
+\>									return REDIR_STDOUT_OVERWRITE;
+alias								return BI_ALIAS;
 [ \t]+								/* Ignore Whitespace */
 "\\\n"								/* Ignore escaped newline */
 \n 									return NEW_LINE;
