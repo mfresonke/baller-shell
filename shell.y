@@ -47,7 +47,9 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE
+%token PIPE_NEXT NEW_LINE AND
+%token BI_CD BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV BI_ALIAS
+%token REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE 
 
 %union
 {
@@ -58,6 +60,8 @@ int main()
 %token <string> WORD 
 %token <string> PATH_ABS 
 %token <string> PATH_REL 
+
+%type <string> argument
 
 %%
 
@@ -126,21 +130,15 @@ command:
 
 arguments:
 	| arguments argument
+	{
+		add_arg( $2 );
+	}
 	;
 
 argument:
 	WORD
-	{
-		add_arg( $1 );
-	}
 	| PATH_ABS 
-	{
-		add_arg( $1 );
-	}
 	| PATH_REL
-	{
-		add_arg( $1 );
-	}
 	;
 
 pipe:
