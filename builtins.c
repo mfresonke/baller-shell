@@ -38,6 +38,21 @@ void cd_word( char *word )
 	cd( path_rel );
 }
 
+void printenv()
+{
+	//duplicate system environ variable
+	//for printing
+	char **environ_ptr = environ;
+
+	//if an environment variable exists...
+	while( *environ_ptr )
+	{
+			//print out each variable and name
+			printf( "%s\n", *environ_ptr );
+			++environ_ptr;
+	}
+}
+
 char* get_cd()
 {
 	return strdup( getenv( "PWD" ) );
