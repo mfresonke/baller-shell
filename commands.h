@@ -4,15 +4,18 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdbool.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
 #include <dirent.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/types.h>
 #include <sys/stat.h>
-#include <stdbool.h>
+#include <sys/file.h>
+
 #include "errors.h"
 #include "string_manipulation.h"
-#include <errno.h>
 
 /* ============ Begin Command Structure ============ */
 
@@ -52,7 +55,7 @@ void clear_commands_helper( struct Command *curr );
 /** Adds an argument to the command_args var. */
 void add_arg( char *arg );
 
-/* ============ Begin PATH Setup Operations ============ */
+/* ============ Begin PATH Search Operations ============ */
 
 /** Searches path for 'cmd'. Returns abs dir if found, NULL if not found */
 char* search_path( char *cmd );
@@ -60,5 +63,20 @@ char* search_path( char *cmd );
 char* search_dir( char *abs_path, char *cmd );
 /** Returns true if a valid file, false, if not. */
 bool is_file_valid( char *filename );
+
+
+/* ============ Begin File Redirection Operations ============ */
+
+//filenames for redirection. NULL if no redirection.
+extern char *file_input;		
+extern char *file_output_std;	
+extern char *file_output_err;
+
+/** Checks if the given file is viable for input redirection. If so, it sets the appropriate vars. To be used by parent process. */
+void redirect_input_check( char *file );
+/** Applies input redirection, if applicable. To be called by child process. */
+void redirect_input_apply();
+/** Clears and Resets all redirect variables. */
+void redirect_clear();
 
 #endif

@@ -7,6 +7,7 @@
 #include "string_manipulation.h"
 
 extern int yyparse();
+extern int yylex();
 
 void yyerror( const char *str )
 {
@@ -20,7 +21,7 @@ int yywrap()
 
 void print_prompt()
 {
-	printf("%s | bs > ", get_cd() );
+	printf("%s | bs => ", get_cd() );
 }
 
 int main()
@@ -46,7 +47,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV
+%token PIPE_NEXT NEW_LINE BI_CD AND BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE
 
 %union
 {
@@ -62,7 +63,7 @@ int main()
 
 input: /* empty */
 	| builtin command_end
-	| command arguments pipe command_end
+	| command arguments pipe redirections command_end
 	;
 
 /* Builtin Command Handling */
@@ -159,9 +160,50 @@ argument:
 	;
 
 pipe:
-	//empty
 	| pipe PIPE_NEXT command arguments
 	;
+
+redirections:
+	| redirection_input redirection_output_std redirection_output_err
+	;
+
+redirection_input:
+	| REDIR_STDIN WORD
+	{
+		redirect_input_check( $2 );
+	}
+	| REDIR_STDIN PATH_ABS
+	{
+		redirect_input_check( $2 );
+	}
+	| REDIR_STDIN PATH_REL
+	{
+		redirect_input_check( $2 );
+	}
+	;
+
+redirection_output_std:
+	| REDIR_STDOUT_APPEND WORD
+	{
+
+	}
+	| REDIR_STDOUT_OVERWRITE WORD
+	{
+
+	}
+	;
+
+redirection_output_err:
+	| REDIR_STDERR_STDIN
+	{
+
+	}
+	| REDIR_STDERR_FILE WORD
+	{
+
+	}
+	;
+
 
 command_end:
 	NEW_LINE

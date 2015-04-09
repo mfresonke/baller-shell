@@ -5,6 +5,9 @@
 struct Command *command_start = NULL;
 struct Command *command_end = NULL;
 bool cmd_run_in_bkgrnd = false;
+char *file_input = NULL;		
+char *file_output_std = NULL;	
+char *file_output_err = NULL;
 
 void new_command( char *cmd_abs_path, char *invocation )
 {
@@ -100,6 +103,12 @@ void run_commands()
 		}
 		else if( pid == 0 )	//if child
 		{
+			/* Setup Input/Output Redirection if applicable */
+			if ( command_curr == command_start )
+				redirect_input_apply();
+
+
+
 			//if only one command...
 			if ( command_end == command_start )
 			{
@@ -108,7 +117,7 @@ void run_commands()
 			//if a set of piped commands...
 			else if( command_curr == command_start )
 			{
-				// only set standard out
+				// set standard out to pipe
 				dup2( pipes_send[1], STDOUT_FILENO );
 				close( pipes_send[0] );
 			}
@@ -134,6 +143,7 @@ void run_commands()
 		pipes_recieve[0] = pipes_send[0];
 		pipes_recieve[1] = pipes_send[1];
 	}
+	redirect_clear();
 
 	//If the user does NOT want the command to run in the background...
 	if ( !cmd_run_in_bkgrnd )
@@ -289,8 +299,70 @@ bool is_file_valid( char *filename )
 	return false;
 }
 
+void redirect_input_check( char *file )
+{
+	/*
+	printf( "begin check on %s!", file );
+	if( access( file, F_OK ) < 0 )
+	{
+		error_redirect_input( "Input file does not exist." );
+		return;
+	}
+	else if( access( file, R_OK ) < 0 )
+	{
+		error_redirect_input( "Input file could not be read." );
+		return;
+	}
+	*/
+	struct stat file_stat;
 
+	if ( stat( file, &file_stat ) < 0 )
+	{
+		error_redirect_input( "Input file does not exist." );
+	}
 
+	//determine if a valid type
+	if( S_ISREG( file_stat.st_mode ) ) //if it's just a regular file...
+	{
+		file_input = file;
+	}
+
+	//now that we know there are no errors, we set the global var.
+	error_redirect_input( "Input file does not exist." );
+}
+
+void redirect_input_apply()
+{
+	//check if applicable
+	if( !file_input )
+	{
+		//if null, return.
+		return;
+	}
+
+	//Open the input as read-only
+	int fd = open( file_input, O_RDONLY );
+
+	//check for open error
+	if( fd < 0 )
+	{
+		error_redirect_input( "Input file could not be opened." );
+		return;
+	}
+
+	//if all is well, then dup the file into std input.
+	dup2( fd, STDIN_FILENO );
+}
+
+void redirect_clear()
+{
+	free( file_input );
+	file_input = NULL;
+	free( file_output_std );
+	file_output_std = NULL;	
+	free( file_output_err );
+	file_output_err = NULL;
+}
 
 
 
