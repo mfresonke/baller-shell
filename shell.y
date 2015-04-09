@@ -1,4 +1,6 @@
 %{
+#define SHELL_EXIT -5
+
 #include <stdio.h>
 #include <string.h>
 #include <unistd.h>
@@ -38,6 +40,11 @@ int main()
 				run_commands();
 				clear_commands();
 				break;
+			case SHELL_EXIT:
+				run_commands();
+				clear_commands();
+				exit(1);
+				break;
 			default:;
 				//check for errors here
 		}
@@ -47,7 +54,7 @@ int main()
 
 %}
 
-%token PIPE_NEXT NEW_LINE AND
+%token PIPE_NEXT NEW_LINE AND END_OF_FILE
 %token BI_CD BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV BI_ALIAS
 %token REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE 
 
@@ -66,7 +73,11 @@ int main()
 
 %%
 
-input: /* empty */
+input:
+	END_OF_FILE
+	{
+		exit(1);
+	}
 	| builtin command_end
 	| command arguments pipe redirections command_end
 	;
@@ -212,5 +223,9 @@ command_end:
 		//set the flag to run the command(s) in the background
 		cmd_run_in_bkgrnd = true;
 		return 1;
+	}
+	| END_OF_FILE
+	{
+		return SHELL_EXIT;
 	}
 	;

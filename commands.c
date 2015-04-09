@@ -81,6 +81,9 @@ void run_commands()
 		char *command_abs_path = command_curr->command_abs_path;
 		char **command_args = command_curr->command_args;
 
+		//Flush Buffer before forking!
+		fflush(0);
+		
 		//Do The Forking!
 		pid = fork();
 
