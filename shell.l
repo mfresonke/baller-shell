@@ -20,15 +20,16 @@ FILE_CHARS	[\/]
 \<									return REDIR_STDIN;
 \>\>								return REDIR_STDOUT_APPEND;
 \>									return REDIR_STDOUT_OVERWRITE;
-alias								return BI_SETALIAS;
+alias								return BI_ALIAS;
+unalias								return BI_ALIAS_UNSET;
 [ \t]+								/* Ignore Whitespace */
 "\\\n"								/* Ignore escaped newline */
 \n 									return NEW_LINE;
 cd									return BI_CD;
 bye									return BI_BYE;
-printenv							return BI_PRINTENV;
-setenv								return BI_SETENV;
-unsetenv							return BI_UNSETENV;
+printenv							return BI_ENV_PRINT;
+setenv								return BI_ENV_SET;
+unsetenv							return BI_ENV_UNSET;
 \.\/({WORD})+						yylval.string=strdup(yytext); return PATH_REL;
 \/({WORD})+							yylval.string=strdup(yytext); return PATH_ABS; 
 ({WORD})+							yylval.string=strdup(yytext); return WORD;

@@ -28,6 +28,10 @@ void error_unset_environment_variable( char *vname )
 
 void error_redirect_input( char *reason )
 {
-	printf( "Error! Failed to set up input redirection: %s", reason );
+	printf( "Error! Failed to set up input redirection: %s\n", reason );
 }
 
+void error_alias_not_exist( char *name )
+{
+	printf( "Error! Alias %s does not exist!\n", name );
+}

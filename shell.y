@@ -74,7 +74,7 @@ int main()
 %}
 
 %token PIPE_NEXT NEW_LINE AND END_OF_FILE
-%token BI_CD BI_BYE BI_PRINTENV BI_SETENV BI_UNSETENV BI_SETALIAS
+%token BI_CD BI_BYE BI_ENV_PRINT BI_ENV_SET BI_ENV_UNSET BI_ALIAS BI_ALIAS_UNSET
 %token REDIR_STDIN REDIR_STDOUT_APPEND REDIR_STDOUT_OVERWRITE REDIR_STDERR_STDIN REDIR_STDERR_FILE 
 
 %union
@@ -96,7 +96,7 @@ int main()
 
 input:
 	| builtin command_end
-	| command arguments pipe redirections command_end
+	| command command_arguments pipe redirections command_end
 	| END_OF_FILE
 	{
 		exit(1);
@@ -164,24 +164,32 @@ bye:
 	;
 
 environment:
-	BI_PRINTENV
+	BI_ENV_PRINT
 	{
 		env_print();
 	}
-	| BI_SETENV WORD argument
+	| BI_ENV_SET WORD argument
 	{
 		env_set( $2, $3 );
 	}
-	| BI_UNSETENV WORD
+	| BI_ENV_UNSET WORD
 	{
 		env_unset( $2 );
 	}
 	;
 
 alias:
-	BI_SETALIAS WORD argument
+	BI_ALIAS WORD argument
 	{
-
+		alias_set( $2, $3 );
+	}
+	| BI_ALIAS //prints all aliases
+	{
+		alias_print();
+	}
+	| BI_ALIAS_UNSET WORD
+	{
+		alias_unset( $2 );
 	}
 
 
@@ -204,15 +212,15 @@ command:
 	}
 	;
 
-arguments:
-	| arguments argument
+command_arguments:
+	| command_arguments argument
 	{
 		add_arg( $2 );
 	}
 	;
 
 pipe:
-	| pipe PIPE_NEXT command arguments
+	| pipe PIPE_NEXT command command_arguments
 	;
 
 /* Redirection Command Handling */

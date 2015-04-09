@@ -16,6 +16,9 @@
 //environment variables
 extern char **environ;
 
+/** Gets the current working directory. */
+char* get_cd();
+
 /* ========== CD ========== */
 /** The main cd command can take in a relative path, or an absolute path. You must call its helper functions to take in anything else. */
 void cd( char *dir );
@@ -34,18 +37,30 @@ void env_set( char *vname, char *value );
 /** Unsets an environment variable by name so it no longer exists*/
 void env_unset( char *vname );
 
-char* get_cd();
-
 /* ========= Begin Alias Structure ======= */
 
 struct Alias 
 {
-	char *name;
-	char *command;
+	char *name;		//name of the alias
+	char *command;	//command the alias represets!
+	struct Alias *next;	//points to next alias
 };
 
-extern struct Alias *aliases[MAX_ALIASES];
+extern struct Alias *alias_start;
+extern struct Alias *alias_end;
 
-void alias_set();
+/** Prints all aliases! */
+void alias_print();
+void alias_set( char *name, char *command );
+void alias_unset( char *name );
+
+/** Searches for an alias of name "name". If found, returns the pointer to the alias with the matching name, and sets "prev" to the name of the previous alias. Returns NULL if not found. */
+struct Alias* alias_search_with_prev( char *name, struct Alias **prev );
+
+/** Searches for an alias of name "name". Returns NULL if not found. */
+struct Alias* alias_search( char *name );
+
+/** Frees a specific alias and its properties. */
+void alias_free( struct Alias* alias );
 
 #endif

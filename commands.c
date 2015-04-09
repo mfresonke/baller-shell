@@ -360,12 +360,3 @@ void redirect_clear()
 	free( file_output_err );
 	file_output_err = NULL;
 }
-
-
-
-
-
-
-
-
-
