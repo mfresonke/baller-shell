@@ -99,14 +99,14 @@ cd:
 	;
 
 bye:
-	| BI_BYE
+	BI_BYE
 	{
 		exit(1);
 	}
 	;
 
 environment:
-	| BI_PRINTENV
+	BI_PRINTENV
 	{
 		printenv();
 	}
@@ -169,7 +169,7 @@ redirections:
 redirection_input:
 	REDIR_STDIN redirection_input_arg
 	{
-		redirect_input_check( $2 );
+		redirect_input_setup( $2 );
 	}
 	;
 	

@@ -104,9 +104,11 @@ void run_commands()
 		else if( pid == 0 )	//if child
 		{
 			/* Setup Input/Output Redirection if applicable */
+
 			if ( command_curr == command_start )
 				redirect_input_apply();
-
+			//else if( command_curr == command_end )
+			//	redirect_output_apply();
 
 
 			//if only one command...
@@ -299,7 +301,7 @@ bool is_file_valid( char *filename )
 	return false;
 }
 
-void redirect_input_check( char *file )
+void redirect_input_setup( char *file )
 {
 	/*
 	printf( "begin check on %s!", file );
@@ -314,6 +316,9 @@ void redirect_input_check( char *file )
 		return;
 	}
 	*/
+
+	/*
+
 	struct stat file_stat;
 
 	if ( stat( file, &file_stat ) < 0 )
@@ -326,9 +331,12 @@ void redirect_input_check( char *file )
 	{
 		file_input = file;
 	}
+	*/
+
+	file_input = file;
 
 	//now that we know there are no errors, we set the global var.
-	error_redirect_input( "Input file does not exist." );
+	//error_redirect_input( "Input file does not exist." );
 }
 
 void redirect_input_apply()
@@ -350,9 +358,9 @@ void redirect_input_apply()
 		return;
 	}
 
-	//if all is well, then dup the file into std input.
 	dup2( fd, STDIN_FILENO );
 }
+
 
 void redirect_clear()
 {

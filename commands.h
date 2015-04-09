@@ -73,7 +73,7 @@ extern char *file_output_std;
 extern char *file_output_err;
 
 /** Checks if the given file is viable for input redirection. If so, it sets the appropriate vars. To be used by parent process. */
-void redirect_input_check( char *file );
+void redirect_input_setup( char *file );
 /** Applies input redirection, if applicable. To be called by child process. */
 void redirect_input_apply();
 /** Clears and Resets all redirect variables. */
