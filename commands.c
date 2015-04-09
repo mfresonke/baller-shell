@@ -83,7 +83,7 @@ void run_commands()
 
 		//Flush Buffer before forking!
 		fflush(0);
-		
+
 		//Do The Forking!
 		pid = fork();
 
@@ -363,6 +363,13 @@ void redirect_input_apply()
 
 	dup2( fd, STDIN_FILENO );
 }
+
+//output help
+/*
+
+int fd = open( file_output, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR );
+
+*/
 
 
 void redirect_clear()
