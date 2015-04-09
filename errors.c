@@ -1,5 +1,10 @@
 #include "errors.h"
 
+void error_retrieving_line_of_input_failed()
+{
+	printf("Error! Could not retrieve line of input. Please try again.\n");
+}
+
 void error_directory_invalid()
 {
 	printf("Error! Invalid Directory.\n");
@@ -34,4 +39,9 @@ void error_redirect_input( char *reason )
 void error_alias_not_exist( char *name )
 {
 	printf( "Error! Alias %s does not exist!\n", name );
+}
+
+void error_applying_aliases( char *reason )
+{
+	printf( "Error! Falied to apply Alias(es): %s\n", reason );
 }

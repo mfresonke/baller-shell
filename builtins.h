@@ -2,7 +2,8 @@
 #define B_SHELL_BUILTINS_H
 
 #define MAX_PATH_LENGTH 200
-#define MAX_ALIASES 100
+#define MAX_ALIASES 200
+#define ALIAS_NOT_FOUND -1
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -43,24 +44,20 @@ struct Alias
 {
 	char *name;		//name of the alias
 	char *command;	//command the alias represets!
-	struct Alias *next;	//points to next alias
 };
 
-extern struct Alias *alias_start;
-extern struct Alias *alias_end;
+extern struct Alias *aliases[MAX_ALIASES];
+extern size_t alias_count;
 
 /** Prints all aliases! */
 void alias_print();
 void alias_set( char *name, char *command );
 void alias_unset( char *name );
 
-/** Searches for an alias of name "name". If found, returns the pointer to the alias with the matching name, and sets "prev" to the name of the previous alias. Returns NULL if not found. */
-struct Alias* alias_search_with_prev( char *name, struct Alias **prev );
+/** Searches for an alias of name "name". Returns index if found, -1 if not found. */
+int alias_search( char *name );
 
-/** Searches for an alias of name "name". Returns NULL if not found. */
-struct Alias* alias_search( char *name );
-
-/** Frees a specific alias and its properties. */
-void alias_free( struct Alias* alias );
+/** Apply aliases takes in input and manipulates it to include any necessary aliases. It will return a NULL string if successful, or a string indicating the error if unsuccessful. */
+char* apply_aliases( char *input );
 
 #endif
