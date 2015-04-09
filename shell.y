@@ -73,41 +73,57 @@ input: /* empty */
 /* Builtin Command Handling */
 
 builtin:
-	BI_CD cd_args
-	| BI_BYE
-	{
-		exit(1);
-	}
-	| BI_PRINTENV
-	{
-		printenv();
-	}
-	| BI_SETENV
-	{
-
-	}
-	| BI_UNSETENV
-	{
-
-	}
+	cd
+	| bye
+	| environment
 	;
 
-cd_args:
-	  PATH_ABS
+cd:
+	  BI_CD PATH_ABS
 	{
-		cd( $1 );
+		cd( $2 );
 	}
-	| PATH_REL
+	| BI_CD PATH_REL
 	{
-		cd( $1 );
+		cd( $2 );
 	}
-	| WORD
+	| BI_CD WORD
 	{
-		cd_word( $1 );
+		cd_word( $2 );
 	}
 	| //Blank
 	{
 		cd_home();
+	}
+	;
+
+bye:
+	| BI_BYE
+	{
+		exit(1);
+	}
+	;
+
+environment:
+	| BI_PRINTENV
+	{
+		printenv();
+	}
+	| BI_SETENV WORD WORD
+	{
+		set_env( $2, $3 );
+	}
+	| BI_SETENV WORD PATH_ABS
+	{
+		set_env( $2, $3 );
+	}
+	| BI_SETENV WORD PATH_REL
+	{
+		set_env( $2, $3 );
+	}
+	| BI_UNSETENV WORD
+	{
+		un_setenv( $2 );
 	}
 	;
 

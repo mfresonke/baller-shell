@@ -26,6 +26,8 @@ alias								return BI_ALIAS;
 cd									return BI_CD;
 bye									return BI_BYE;
 printenv							return BI_PRINTENV;
+setenv								return BI_SETENV;
+unsetenv							return BI_UNSETENV;
 \.\/({WORD})+						yylval.string=strdup(yytext); return PATH_REL;
 \/({WORD})+							yylval.string=strdup(yytext); return PATH_ABS; 
 \"({WORD}*[ \n]*"\\\n"*)*\"			yylval.string=str_filter(strdup(yytext));  return WORD;
