@@ -62,6 +62,7 @@ int main()
 %token <string> PATH_REL 
 
 %type <string> argument
+%type <string> redirection_input_arg
 
 %%
 
@@ -166,19 +167,17 @@ redirections:
 	;
 
 redirection_input:
-	| REDIR_STDIN WORD
-	{
-		redirect_input_check( $2 );
-	}
-	| REDIR_STDIN PATH_ABS
-	{
-		redirect_input_check( $2 );
-	}
-	| REDIR_STDIN PATH_REL
+	REDIR_STDIN redirection_input_arg
 	{
 		redirect_input_check( $2 );
 	}
 	;
+	
+redirection_input_arg:
+		WORD
+		| PATH_ABS
+		| PATH_REL
+		;
 
 redirection_output_std:
 	| REDIR_STDOUT_APPEND WORD
