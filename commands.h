@@ -26,6 +26,9 @@ void run_commands();
 /** Determines if a set of commands will run in the background or foreground. */
 extern bool cmd_run_in_bkgrnd;
 
+/* Determines if output redirect is append or overwrite. */
+extern bool apply_output_append;
+
 /** SLL command structure. Has all the data needed for one command to run. */
 struct Command
 {
@@ -77,6 +80,13 @@ extern char *file_output_err;
 void redirect_input_setup( char *file );
 /** Applies input redirection, if applicable. To be called by child process. */
 void redirect_input_apply();
+
+/** Sets up a given file to be appended with new data and sets append output flag.  */
+void redirect_output_append_setup( char *file );
+/** Sets up a given file to be overwritten with new data */
+void redirect_output_overwrite_setup( char *file );
+/** Apply output redirection, if applicable. To be called by child procces. */
+void redirect_output_apply();
 /** Clears and Resets all redirect variables. */
 void redirect_clear();
 

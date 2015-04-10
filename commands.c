@@ -5,6 +5,7 @@
 struct Command *command_start = NULL;
 struct Command *command_end = NULL;
 bool cmd_run_in_bkgrnd = false;
+bool apply_output_append = false;
 char *file_input = NULL;		
 char *file_output_std = NULL;	
 char *file_output_err = NULL;
@@ -111,8 +112,11 @@ void run_commands()
 
 			if ( command_curr == command_start )
 				redirect_input_apply();
-			//else if( command_curr == command_end )
-			//	redirect_output_apply();
+
+			if( command_curr == command_end )
+			{
+				redirect_output_apply();
+			}
 
 
 			//if only one command...
@@ -344,13 +348,47 @@ void redirect_input_apply()
 	dup2( fd, STDIN_FILENO );
 }
 
-//output help
-/*
+void redirect_output_append_setup( char *file )
+{
+	file_output_std = file;
+	apply_output_append = true;
+}
 
-int fd = open( file_output, O_RDWR | O_CREAT, S_IRUSR | S_IWUSR );
+void redirect_output_overwrite_setup( char *file )
+{
+	file_output_std = file;
+}
 
-*/
+void redirect_output_apply()
+{
+	int fd;
 
+	//if output append was called
+	if(apply_output_append)
+	{
+		//append to the file if no errors occur
+		if( ( fd = open( file_output_std, O_WRONLY | O_APPEND | O_CREAT, 
+			       S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH ) ) == -1 ) 
+		{
+			error_redirect_output( "Output file does not exist." );
+			return;
+		}
+	}
+	//otherwise
+	else
+	{
+		//overwrite the file if no errors occur
+		if( ( fd = open(file_output_std, O_WRONLY | O_CREAT | O_TRUNC,
+    	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH ) ) == -1 )
+    	{
+    		error_redirect_output( "Output file does not exist." );
+    		return;
+    	}
+	}
+
+	dup2( fd, STDOUT_FILENO );
+
+}
 
 void redirect_clear()
 {
@@ -360,4 +398,5 @@ void redirect_clear()
 	file_output_std = NULL;	
 	free( file_output_err );
 	file_output_err = NULL;
+	apply_output_append = NULL;
 }
