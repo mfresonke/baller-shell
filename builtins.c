@@ -169,10 +169,78 @@ int alias_search( char *name )
 	return ALIAS_NOT_FOUND;
 }
 
-char* apply_aliases( char *input )
+char* apply_aliases( char *input_raw )
 {
+	int a;
+	int b;
+	char *input = input_raw;
 
+	//make a bool array that will keep track if we used a particular alias (to detect recursion)
+	bool alias_used[MAX_ALIASES];
+	//make all needed values false
+	for( a = 0; a != alias_count; ++a )
+		alias_used[a] = false;
 
-	//Return NULL on success
-	return NULL;
+	//for each alias...
+	for( a = 0; a != alias_count; ++a )
+	{
+		size_t input_length = strlen( input );
+		char *alias_name = aliases[a]->name;
+		size_t alias_length = strlen( alias_name );
+		//used to account for possible spaces at the beginning of input.
+		size_t offset = 0;
+		//for each character in the input...
+		for( b = 0; b != input_length; ++b )
+		{
+			size_t alias_index = ( b - offset );
+			//check if current char is a space
+			if( input[b] == ' ' )
+			{
+				//if so, add one to our offset.
+				++offset;
+				continue;
+			}
+
+			//if the beginning of user input does NOT match the alias name...
+			if( input[b] != alias_name[alias_index] )
+			{
+				//break to the next alias to search
+				break;
+			}
+
+			//if we are at the end of the alias_name...
+			if( alias_index == ( alias_length-1 ) )
+			{
+				//then we have successfully found the alias! 
+
+				//check if recursive loop
+				if( alias_used[a] )
+				{
+					warn_alias_loop_detected();
+					break;
+				}
+				
+				//otherwise...
+
+				//set it as used
+				alias_used[a] = true;
+
+				//Replace it with a command!
+				char *input_new = replace_text( input, offset, b, aliases[a]->command );
+				free( input );
+				input = input_new;
+			}
+		}
+	}
+	//if our input has changed, we need to run this function again until it no longer detects any changes.
+	if( input_raw != input )
+	{
+		return apply_aliases( input );
+	}
+	else
+	{
+		return input;
+	}
 }
+
+

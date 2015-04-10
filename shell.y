@@ -39,21 +39,20 @@ int main()
 		print_prompt();
 
 		//take in input to string
-		char input[MAX_LINE_SIZE];
+		char *input = calloc( sizeof(char), MAX_LINE_SIZE );
 		if( !fgets( input, MAX_LINE_SIZE, stdin ) )
 		{
 			error_retrieving_line_of_input_failed();
 			//skip to the next loop iteration
-			break;
+			continue;
 		}
 
 		//search for, and apply aliases!
-		char *alias_error = apply_aliases( input );
-		if( alias_error )
+		input = apply_aliases( input );
+		if( !input )
 		{
-			//if applying aliases was unsuccessfull...
-			error_applying_aliases( alias_error );
-			break;
+			//There was an error applying aliases. Start over.
+			continue;
 		}
 
 		//pass string to lex

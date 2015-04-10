@@ -22,4 +22,7 @@ char* word_to_rel_path( char *word );
 /** Takes a relative path, and turns it into a (crappy) absolute path that exec will understand. */
 char* path_rel_to_abs( char *path_rel );
 
+/** replaces the text from "index_start" to "index_end" with the text specified in "replacement". */
+char* replace_text( char *original, size_t replace_start, size_t replace_end, char *replacement );
+
 #endif

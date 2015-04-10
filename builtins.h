@@ -54,10 +54,10 @@ void alias_print();
 void alias_set( char *name, char *command );
 void alias_unset( char *name );
 
-/** Searches for an alias of name "name". Returns index if found, -1 if not found. */
+/** Searches for an alias of name "name". Returns index if found, ALIAS_NOT_FOUND if not found. */
 int alias_search( char *name );
 
-/** Apply aliases takes in input and manipulates it to include any necessary aliases. It will return a NULL string if successful, or a string indicating the error if unsuccessful. */
-char* apply_aliases( char *input );
+/** Apply aliases takes in input and manipulates it to include any necessary aliases. It will return a NULL string if failed, the same string if nothing changed, or a new string if successful. */
+char* apply_aliases( char *input_raw );
 
 #endif

@@ -1,5 +1,10 @@
 #include "errors.h"
 
+void warn_alias_loop_detected()
+{
+	printf( "Warning! An alias loop was detected!\n" );
+}
+
 void error_retrieving_line_of_input_failed()
 {
 	printf("Error! Could not retrieve line of input. Please try again.\n");

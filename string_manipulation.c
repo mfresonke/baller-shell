@@ -71,3 +71,30 @@ char* path_rel_to_abs( char *path_rel )
 	return path_abs;
 }
 
+char* replace_text( char *str_orig, size_t replace_start, size_t replace_end, char *str_rep )
+{
+	//size of original, to help with calculation
+	size_t length_orig = strlen( str_orig );
+
+	//get the sizes of the individual pieces we are putting together
+	size_t length_orig_beg = replace_start;
+	size_t length_rep = strlen( str_rep );
+	size_t length_orig_end = ( length_orig - replace_end + 1 );
+
+	//add them all up, accounting for the ending char.
+	size_t length_new = ( length_orig_beg + length_rep + length_orig_end + 1 );
+
+	char *new_str = calloc( length_new, sizeof(char) );
+
+	//copy the pieces into place!
+	strncpy( new_str, str_orig, length_orig_beg );
+	strncat( new_str, str_rep, length_rep );
+	if( replace_end < ( length_orig - 1 ) )
+		strncat( new_str, &str_orig[ replace_end+1 ], length_orig_end );
+
+	return new_str;
+}
+
+
+
+

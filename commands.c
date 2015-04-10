@@ -89,6 +89,7 @@ void run_commands()
 
 		if( pid > 0 )		//if parent process
 		{	
+			//if we have not just forked the beginning command...
 			if( command_curr != command_start )
 			{
 				close( pipes_recieve[1] );
@@ -151,14 +152,14 @@ void run_commands()
 	redirect_clear();
 
 	//If the user does NOT want the command to run in the background...
-	if ( !cmd_run_in_bkgrnd )
+	if ( cmd_run_in_bkgrnd )
 	{
-		//then wait on your children!
-		waitpid( pid, NULL, 0 );
+		cmd_run_in_bkgrnd = false;
 	}
 	else
 	{
-		cmd_run_in_bkgrnd = false;
+		//then wait on your children!
+		waitpid( pid, NULL, 0 );
 	}
 	
 }
