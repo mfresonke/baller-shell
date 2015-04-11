@@ -134,6 +134,9 @@ argument:
 	| PATH_REL
 	;
 
+arguments:
+	arguments argument;
+
 
 /* Builtin Command Handling */
 

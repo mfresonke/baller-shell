@@ -175,6 +175,9 @@ char* run_preparser( char *input )
 	input = search_and_apply_aliases( input );
 	if( !input )
 		return NULL;
+	input = search_and_apply_env_vars( input );
+	if( !input )
+		return NULL;
 	return input;
 }
 
@@ -226,6 +229,17 @@ char* search_and_apply_aliases( char *input )
 	return input;
 }
 
+char* search_and_apply_env_vars( char *input )
+{
+	char *env_var_start = strstr( input, ENV_TOKEN_START );
+	if( env_var_start )
+	{
+		//account for the TOKEN
+		env_var_start += 2;
+		char *env_var_end = strstr( env_var_start, ENV_TOKEN_END );
+	}
+	return input;
+}
 
 
 
