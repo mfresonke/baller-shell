@@ -49,6 +49,9 @@ int main()
 
 		input = run_preparser( input );
 
+		if( !input )
+			continue;
+
 		//pass string to lex
 		YY_BUFFER_STATE buffer = yy_scan_string ( input );
 

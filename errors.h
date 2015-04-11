@@ -6,7 +6,7 @@
 #include <string.h>
 #include <unistd.h>
 
-void warn_alias_loop_detected();
+void error_alias_loop_detected();
 
 void error_retrieving_line_of_input_failed();
 void error_command_not_found( char *cmd );

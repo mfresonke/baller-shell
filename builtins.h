@@ -4,6 +4,7 @@
 #define MAX_PATH_LENGTH 200
 #define MAX_ALIASES 200
 #define ALIAS_NOT_FOUND -1
+#define ALIAS_DELIMITERS " \"\n"
 
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,8 +1,8 @@
 #include "errors.h"
 
-void warn_alias_loop_detected()
+void error_alias_loop_detected()
 {
-	printf( "Warning! An alias loop was detected!\n" );
+	printf( "Error! An alias loop was detected!\n" );
 }
 
 void error_retrieving_line_of_input_failed()
