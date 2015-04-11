@@ -118,7 +118,6 @@ void run_commands()
 			{
 				redirect_output_apply();
 				redirect_stderr_apply();
-				fprintf(stderr, "This goes to stderr\n");
 			}
 
 			//if only one command...
@@ -401,7 +400,6 @@ void redirect_output_apply()
 
 void redirect_stderr_file_setup( char *file )
 {
-	fprintf( stderr, "This 1!! goes to stderr\n");
 	file_output_err = file;
 	apply_stderr_file = true;
 }
@@ -448,6 +446,6 @@ void redirect_clear()
 	file_output_std = NULL;	
 	free( file_output_err );
 	file_output_err = NULL;
-	apply_output_append = NULL;
-	apply_stderr_file = NULL;
+	apply_output_append = false;
+	apply_stderr_file = false;
 }
