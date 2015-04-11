@@ -4,3 +4,4 @@ lex.yy.c
 *.tab.h
 .DS_Store
 output/
+test*
