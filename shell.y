@@ -64,10 +64,12 @@ int main()
 				if( !cmd_errr )
 					run_commands();
 				clear_commands();
+				redirect_clear();
 				break;
 			case SHELL_EXIT:
 				run_commands();
 				clear_commands();
+				redirect_clear();
 				exit(1);
 				break;
 			default:;
@@ -235,11 +237,11 @@ pipe:
 /* Redirection Command Handling */
 
 redirections:
-	| redirection_input redirection_output_std redirection_output_err
+	redirection_input redirection_output_std redirection_output_err
 	;
 
 redirection_input:
-	REDIR_STDIN argument
+	| REDIR_STDIN argument
 	{
 		redirect_input_setup( $2 );
 	}
@@ -248,11 +250,11 @@ redirection_input:
 redirection_output_std:
 	| REDIR_STDOUT_APPEND WORD
 	{
-
+		redirect_output_append_setup( $2 );
 	}
-	| REDIR_STDOUT_OVERWRITE WORD
+	| REDIR_STDOUT_OVERWRITE argument
 	{
-
+		redirect_output_overwrite_setup( $2 );
 	}
 	;
 

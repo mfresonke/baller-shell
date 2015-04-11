@@ -17,6 +17,7 @@ void error_set_environment_variable( char *word );
 void error_unset_environment_variable( char *word );
 
 void error_redirect_input( char *reason );
+void error_redirect_output( char *reason );
 
 void error_alias_not_exist( char *name );
 void error_applying_aliases( char *reason );

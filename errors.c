@@ -41,6 +41,11 @@ void error_redirect_input( char *reason )
 	printf( "Error! Failed to set up input redirection: %s\n", reason );
 }
 
+void error_redirect_output( char *reason )
+{
+	printf( "Error! Failed to set up output redirection: %s\n", reason );
+}
+
 void error_alias_not_exist( char *name )
 {
 	printf( "Error! Alias %s does not exist!\n", name );
