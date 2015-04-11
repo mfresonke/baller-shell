@@ -254,10 +254,10 @@ redirection_output_std:
 redirection_output_err:
 	| REDIR_STDERR_STDIN
 	{
-
+		redirect_stderr_apply();
 	}
 	| REDIR_STDERR_FILE WORD
 	{
-
+		redirect_stderr_file_setup( $2 );
 	}
 	;

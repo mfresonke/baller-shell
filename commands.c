@@ -6,6 +6,7 @@ struct Command *command_start = NULL;
 struct Command *command_end = NULL;
 bool cmd_run_in_bkgrnd = false;
 bool apply_output_append = false;
+bool apply_stderr_file = false;
 char *file_input = NULL;		
 char *file_output_std = NULL;	
 char *file_output_err = NULL;
@@ -114,8 +115,11 @@ void run_commands()
 				redirect_input_apply();
 
 			if( command_curr == command_end )
+			{
 				redirect_output_apply();
-
+				redirect_stderr_apply();
+				fprintf(stderr, "This goes to stderr\n");
+			}
 
 			//if only one command...
 			if ( command_end == command_start )
@@ -395,6 +399,47 @@ void redirect_output_apply()
 
 }
 
+void redirect_stderr_file_setup( char *file )
+{
+	fprintf( stderr, "This 1!! goes to stderr\n");
+	file_output_err = file;
+	apply_stderr_file = true;
+}
+
+void redirect_stderr_apply()
+{
+	//check if applicable
+	if( !file_output_err )
+	{
+		//if null, return.
+		return;
+	}
+
+	int fd;
+
+	//if output standard error to a file was called
+	if( apply_stderr_file )
+	{
+		if( ( fd = open(file_output_err, O_WRONLY | O_CREAT | O_TRUNC,
+    	S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH ) ) == -1 )
+    	{
+    		error_redirect_output( "Output file does not exist." );
+    		return;
+    	}
+	}
+	//otherwise connect standard error to program's
+	// standard output
+	else
+	{
+
+		fd = 1;
+		
+	}
+
+	dup2( fd, STDERR_FILENO );
+
+}
+
 void redirect_clear()
 {
 	free( file_input );
@@ -404,4 +449,5 @@ void redirect_clear()
 	free( file_output_err );
 	file_output_err = NULL;
 	apply_output_append = NULL;
+	apply_stderr_file = NULL;
 }
