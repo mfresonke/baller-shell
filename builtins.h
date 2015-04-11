@@ -58,7 +58,11 @@ void alias_unset( char *name );
 /** Searches for an alias of name "name". Returns index if found, ALIAS_NOT_FOUND if not found. */
 int alias_search( char *name );
 
-/** Apply aliases takes in input and manipulates it to include any necessary aliases. It will return a NULL string if failed, the same string if nothing changed, or a new string if successful. */
-char* apply_aliases( char *input_raw );
+/* ========= Begin Pre-parse Structure ======= */
+
+/** Preparses Input. Returns char of fixed input. */
+char* run_preparser( char *input );
+
+char* search_and_apply_aliases( char *input );
 
 #endif

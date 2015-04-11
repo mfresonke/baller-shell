@@ -114,9 +114,7 @@ void run_commands()
 				redirect_input_apply();
 
 			if( command_curr == command_end )
-			{
 				redirect_output_apply();
-			}
 
 
 			//if only one command...
@@ -361,10 +359,17 @@ void redirect_output_overwrite_setup( char *file )
 
 void redirect_output_apply()
 {
+	//check if applicable
+	if( !file_output_std )
+	{
+		//if null, return.
+		return;
+	}
+
 	int fd;
 
 	//if output append was called
-	if(apply_output_append)
+	if( apply_output_append )
 	{
 		//append to the file if no errors occur
 		if( ( fd = open( file_output_std, O_WRONLY | O_APPEND | O_CREAT, 

@@ -47,13 +47,7 @@ int main()
 			continue;
 		}
 
-		//search for, and apply aliases!
-		input = apply_aliases( input );
-		if( !input )
-		{
-			//There was an error applying aliases. Start over.
-			continue;
-		}
+		input = run_preparser( input );
 
 		//pass string to lex
 		YY_BUFFER_STATE buffer = yy_scan_string ( input );
@@ -61,8 +55,7 @@ int main()
 		switch( yyparse() )
 		{
 			case 1:
-				if( !cmd_errr )
-					run_commands();
+				run_commands();
 				clear_commands();
 				redirect_clear();
 				break;
@@ -248,7 +241,7 @@ redirection_input:
 	;
 
 redirection_output_std:
-	| REDIR_STDOUT_APPEND WORD
+	| REDIR_STDOUT_APPEND argument
 	{
 		redirect_output_append_setup( $2 );
 	}

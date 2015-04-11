@@ -170,139 +170,49 @@ int alias_search( char *name )
 	return ALIAS_NOT_FOUND;
 }
 
-char* apply_aliases( char *input_raw )
+char* run_preparser( char *input )
 {
-	int a;
-	int b;
-	char *input = input_raw;
-
-	//setup the alias used variable if it isn't already.
-	if( !alias_used )
-	{
-		//create a new zeroed out bool array.
-		alias_used = calloc( alias_count, sizeof( bool ) );
-	}
-
-	//for each alias...
-	for( a = 0; a != alias_count; ++a )
-	{
-		size_t input_length = strlen( input );
-		char *alias_name = aliases[a]->name;
-		size_t alias_length = strlen( alias_name );
-		//used to account for possible spaces at the beginning of input.
-		size_t offset = 0;
-		//for each character in the input...
-		for( b = 0; b != input_length; ++b )
-		{
-			size_t alias_index = ( b - offset );
-			//check if current char is a space
-			if( input[b] == ' ' )
-			{
-				//if so, add one to our offset.
-				++offset;
-				continue;
-			}
-
-			//if the beginning of user input does NOT match the alias name...
-			if( input[b] != alias_name[alias_index] )
-			{
-				//break to the next alias to search
-				break;
-			}
-
-			//if we are at the end of the alias_name...
-			if( alias_index == ( alias_length-1 ) )
-			{
-				//then we have successfully found the alias! 
-
-				//check if recursive loop
-				if( alias_used[a] )
-				{
-					warn_alias_loop_detected();
-					return NULL;
-				}
-				
-				//otherwise...
-
-				//set it as used
-				alias_used[a] = true;
-
-				//Replace it with a command!
-				char *input_new = replace_text( input, offset, b, aliases[a]->command );
-				free( input );
-				input = input_new;
-			}
-		}
-	}
-	//if our input has changed, we need to run this function again until it no longer detects any changes.
-	if( input_raw != input )
-	{
-		return apply_aliases( input );
-	}
-	else
-	{
-		free( alias_used );
-		return input;
-	}
+	input = search_and_apply_aliases( input );
+	return input;
 }
 
-char* apply_aliases( char *input_raw )
+char* search_and_apply_aliases( char *input )
 {
 	int a;
-	int b;
-	char *input = input_raw;
+	//create "used" token array.
+	bool alias_used[MAX_ALIASES];
+	for( a = 0; a != MAX_ALIASES; ++a )
+		alias_used[a] = false;
 
-	//setup the alias used variable if it isn't already.
-	if( !alias_used )
+	bool input_changed = true;
+
+	while( input_changed )
 	{
-		//create a new zeroed out bool array.
-		alias_used = calloc( alias_count, sizeof( bool ) );
-	}
-
-	//for each alias...
-	for( a = 0; a != alias_count; ++a )
-	{
-		size_t input_length = strlen( input );
-		char *alias_name = aliases[a]->name;
-		size_t alias_length = strlen( alias_name );
-		//used to account for possible spaces at the beginning of input.
-		size_t offset = 0;
-		
-
-			//if we are at the end of the alias_name...
-			if( alias_index == ( alias_length-1 ) )
+		input_changed = false;
+		char *token_prev = strdup( input );
+		size_t token_index = 0;
+		//tokenize input by spaces & quotes 
+		char *input_token = strtok( token_prev, " \"\n" );
+		while( input_token )
+		{
+			//search for alias
+			int result = alias_search( input_token );
+			if( result != ALIAS_NOT_FOUND && !alias_used[result] )
 			{
-				//then we have successfully found the alias! 
-
-				//check if recursive loop
-				if( alias_used[a] )
-				{
-					warn_alias_loop_detected();
-					return NULL;
-				}
-				
-				//otherwise...
-
-				//set it as used
-				alias_used[a] = true;
-
-				//Replace it with a command!
-				char *input_new = replace_text( input, offset, b, aliases[a]->command );
+				//apply the alias, and mark it as used. 
+				char* input_new = replace_text( input, token_index, ( token_index + strlen( input_token ) - 1 ), aliases[result]->command )
+				;
 				free( input );
 				input = input_new;
+				input_changed = true;
+				break;
 			}
+			token_index = ( strlen( token_prev ) + 1 );
+			token_prev = input_token;
+			input_token = strtok( NULL, " \"\n" );
 		}
 	}
-	//if our input has changed, we need to run this function again until it no longer detects any changes.
-	if( input_raw != input )
-	{
-		return apply_aliases( input );
-	}
-	else
-	{
-		free( alias_used );
-		return input;
-	}
+	return input;
 }
 
 
