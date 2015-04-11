@@ -173,6 +173,8 @@ int alias_search( char *name )
 char* run_preparser( char *input )
 {
 	input = search_and_apply_aliases( input );
+	if( !input )
+		return NULL;
 	return input;
 }
 
@@ -193,7 +195,10 @@ char* search_and_apply_aliases( char *input )
 		size_t token_index = 0;
 		//tokenize input by spaces & quotes 
 		char *input_token = strtok( token_prev, " \"\n" );
-		while( input_token )
+		//we need to add an exception if the first token is the word "alias"
+		if( strcmp( input_token, "alias" ) == 0 )
+			break;
+		if( input_token )
 		{
 			//search for alias
 			int result = alias_search( input_token );
@@ -204,8 +209,14 @@ char* search_and_apply_aliases( char *input )
 				;
 				free( input );
 				input = input_new;
+				alias_used[result] = true;
 				input_changed = true;
-				break;
+				continue;
+			}
+			else if( alias_used[result] )
+			{
+				error_alias_loop_detected();
+				return NULL;
 			}
 			token_index = ( strlen( token_prev ) + 1 );
 			token_prev = input_token;
