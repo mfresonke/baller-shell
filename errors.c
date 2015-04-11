@@ -55,3 +55,8 @@ void error_applying_aliases( char *reason )
 {
 	printf( "Error! Falied to apply Alias(es): %s\n", reason );
 }
+
+void error_env_var_not_found( char *env_var )
+{
+	printf( "Error! Could not find enviornment variable \"%s\"!\n", env_var );
+}

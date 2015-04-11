@@ -231,12 +231,55 @@ char* search_and_apply_aliases( char *input )
 
 char* search_and_apply_env_vars( char *input )
 {
-	char *env_var_start = strstr( input, ENV_TOKEN_START );
-	if( env_var_start )
+	char *env_var_end = input;
+	while( env_var_end )
 	{
-		//account for the TOKEN
-		env_var_start += 2;
-		char *env_var_end = strstr( env_var_start, ENV_TOKEN_END );
+		char *env_var_token_start = strstr( env_var_end, ENV_TOKEN_START );
+		size_t token_start_index = get_char_pointer_index( input, env_var_token_start );
+		//clear out env_var_end since it's now not truly the end.
+		env_var_end = NULL;
+		if( env_var_token_start && strlen( env_var_token_start ) > 2 )
+		{
+			//account for the TOKEN
+			char *env_var_start = ( env_var_token_start + 2 );
+			env_var_end = strstr( env_var_start, ENV_TOKEN_END );
+
+			//if the ending token doesn't exist, return.
+			if( !env_var_end )
+				return input;
+
+			//get the length of the potential env var
+			size_t env_var_length = 0;
+			char *pos;
+			for( pos = env_var_start; pos != env_var_end; ++pos )
+				++env_var_length;
+
+			//make env_var its own real string.
+			char *env_var = calloc( env_var_length + 1, sizeof(char) );
+
+			strncpy( env_var, env_var_start, env_var_length );
+
+			//get the env var definition!
+			char *env_def = getenv( env_var );
+
+			//replace! (if applicable)
+			if( env_def )
+			{
+				char *input_new = NULL;
+				input_new = replace_text_pointers( input, env_var_token_start, env_var_end, env_def );
+				free( input );
+				input = input_new;
+				//make env_var_end a pointer to the new string.
+				env_var_end = &input[token_start_index+1];
+			}
+			else
+			{
+				error_env_var_not_found( env_var );
+			}
+			//do some cleanup
+			free( env_var );
+			env_var = NULL;
+		}
 	}
 	return input;
 }

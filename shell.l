@@ -20,7 +20,6 @@ FILE_CHARS	[\/]
 \<									return REDIR_STDIN;
 \>\>								return REDIR_STDOUT_APPEND;
 \>									return REDIR_STDOUT_OVERWRITE;
->>>>>>> 97309acb4d6c64fd916c606f807ee16e51979905
 alias								return BI_ALIAS;
 unalias								return BI_ALIAS_UNSET;
 [ \t]+								/* Ignore Whitespace */

@@ -95,6 +95,33 @@ char* replace_text( char *str_orig, size_t replace_start, size_t replace_end, ch
 	return new_str;
 }
 
+char* replace_text_pointers( char *str_orig, char *replace_start, char *replace_end, char *str_rep )
+{
+	//just find the indicies so you can pass the values to the real replace_text function.
+	size_t replace_start_index = 0;
+	size_t replace_end_index = 0;
+	char *curr;
+
+	//compute the index of replace_start. NOTICE THERE IS NO DEREFERENCING HERE! We are comparing memory addresses!
+	for( curr = str_orig; curr != replace_start; ++curr )
+		++replace_start_index;
+	for( curr = str_orig; curr != replace_end; ++curr )
+		++replace_end_index;
+
+	return replace_text( str_orig, replace_start_index, replace_end_index, str_rep );
+}
+
+int get_char_pointer_index( char *str, char *search )
+{
+	int a;
+	for( a = 0; str[a]; ++a )
+	{
+		if( search == &str[a] )
+			return a;
+	}
+	return -1;
+}
+
 
 
 
