@@ -186,6 +186,14 @@ environment:
 	{
 		env_unset( $2 );
 	}
+	| BI_ENV_SET error 
+	{ 
+		printf( "setenv requires two arguments!\n" ); 
+	}
+	| BI_ENV_UNSET error 
+	{ 
+		printf( "usetenv requires one argument!\n" ); 
+	}
 	;
 
 alias:
@@ -201,6 +209,15 @@ alias:
 	{
 		alias_unset( $2 );
 	}
+	| BI_ALIAS error
+	{
+		printf( "alias requires two arguments!\n" ); 
+	}
+	| BI_ALIAS_UNSET error
+	{
+		printf( "unalias requires one argument!\n" ); 
+	}
+	;
 
 
 
@@ -259,11 +276,8 @@ redirection_output_std:
 
 redirection_output_err:
 	| REDIR_STDERR_STDIN
-	{
-
-	}
 	| REDIR_STDERR_FILE WORD
 	{
-
+		redirect_stderr_file_setup( $2 );
 	}
 	;
