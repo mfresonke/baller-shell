@@ -48,6 +48,7 @@ struct Alias
 
 extern struct Alias *aliases[MAX_ALIASES];
 extern size_t alias_count;
+extern bool *alias_used;
 
 /** Prints all aliases! */
 void alias_print();

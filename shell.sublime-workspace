@@ -1,0 +1,928 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"file",
+				"file_output_err"
+			],
+			[
+				"input",
+				"redirect_input_apply"
+			],
+			[
+				"ana",
+				"analyze_file"
+			],
+			[
+				"MAX",
+				"MAX_PATH_FOLDERS"
+			],
+			[
+				"num",
+				"num_of_messages"
+			],
+			[
+				"print",
+				"print_msg_array"
+			],
+			[
+				"des",
+				"destroy_inbox"
+			],
+			[
+				"is",
+				"is_inbox_empty"
+			],
+			[
+				"de",
+				"dequeue_message"
+			],
+			[
+				"send",
+				"sendMsg"
+			],
+			[
+				"pr",
+				"prptr"
+			],
+			[
+				"enqu",
+				"enqueue_success"
+			],
+			[
+				"MAX_T",
+				"MAX_TIME_EAT"
+			],
+			[
+				"queue",
+				"queue_size"
+			],
+			[
+				"resour",
+				"resources_avail"
+			],
+			[
+				"phi",
+				"philosopher_waiting"
+			],
+			[
+				"new",
+				"new_line"
+			],
+			[
+				"array1",
+				"array1_middle"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "shell.l",
+			"settings":
+			{
+				"buffer_size": 986,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "shell.y",
+			"settings":
+			{
+				"buffer_size": 3347,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "builtins.h",
+			"settings":
+			{
+				"buffer_size": 1962,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "builtins.c",
+			"settings":
+			{
+				"buffer_size": 4318,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "commands.c",
+			"settings":
+			{
+				"buffer_size": 7701,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "errors.h",
+			"settings":
+			{
+				"buffer_size": 525,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "errors.c",
+			"settings":
+			{
+				"buffer_size": 1002,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "makefile",
+			"settings":
+			{
+				"buffer_size": 477,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "string_manipulation.h",
+			"settings":
+			{
+				"buffer_size": 1039,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "string_manipulation.c",
+			"settings":
+			{
+				"buffer_size": 1928,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 147.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"insta",
+				"Package Control: Install Package"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"git",
+				"Package Control: Install Package"
+			],
+			[
+				"Package",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 467.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/max/Projects/baller_shell/main_shell",
+		"/Users/max/Projects/baller_shell/main_shell/output"
+	],
+	"file_history":
+	[
+		"/Users/max/Projects/baller_shell/main_shell/commands.c",
+		"/Users/max/Projects/baller_shell/main_shell/commands.h",
+		"/Users/max/Projects/baller_shell/main_shell/makefile",
+		"/Users/max/Projects/baller_shell/main_shell/test_input",
+		"/Users/max/Projects/baller_shell/main_shell/input.txt",
+		"/Users/max/Projects/baller_shell/main_shell/output/input.txt",
+		"/Users/max/Projects/baller_shell/archive/system_call_tests/fork test/main.c",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/users.client.module.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/tests/lesson-list.client.controller.test.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/controllers/lessons.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/controllers/courses.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/controllers/lesson.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/core/controllers/home.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/calendar/controllers/calendar.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/calendar/tests/calendar.client.controller.test.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/lesson-list.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/views/dashboard.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/controllers/dashboard.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/controllers/lesson-list.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/models/user.server.model.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/.gitignore",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/controllers/authentication.client.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/lesson-create.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/lesson-list-remove.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/course-list.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/routes/lessons.server.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/services/lessons.client.service.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/services/courses.client.service.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/config/courses.client.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/routes/courses.server.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/course-create.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/controllers/courses.server.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/controllers/lessons.server.controller.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/models/lessons.server.model.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/course-remove.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/routes/core.server.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/lesson-list-create.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/course-list-template.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/models/message.server.model.js",
+		"/Users/max/Downloads/Pipes.c",
+		"/Users/max/Downloads/Pipes (1).c",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/models/courses.server.model.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/services/users.client.service.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/routes/users.server.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/controllers/users.server.controller.js",
+		"/Users/max/Downloads/tester",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/courses/views/lesson-view.client.view.html",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/views/authentication/userprofile.client.view.html",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 1/Part 1 copy/partII_main.c",
+		"/Users/max/Projects/Local Shopping/public/modules/core/views/home.client.view.html",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 1/Part 1 copy/main.c",
+		"/Users/max/Downloads/sswc/createtables.sql",
+		"/Users/max/assign3.sh",
+		"/Users/max/Desktop/instances.json",
+		"/Users/max/projects/baller_shell/main_shell/shell.l",
+		"/Users/max/projects/baller_shell/main_shell/.gitignore",
+		"/Users/max/projects/baller_shell/main_shell/makefile",
+		"/Users/max/hello_xixi.c",
+		"/Users/max/projects/baller_shell/system_call_tests/exec_prog/main.c",
+		"/Users/max/projects/baller_shell/system_call_tests/fork test/main.c",
+		"/Users/max/projects/baller_shell/parsing_test/shell_basics/makefile",
+		"/Users/max/projects/baller_shell/parsing_test/shell_basics/shell.l",
+		"/Users/max/projects/baller_shell/parsing_test/shell_basics/main.c",
+		"/Users/max/Projects/baller_shell/parsing_test/shell_basics/shell.tab.c",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/core/views/home.client.view.html",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/system/semdelete.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/system/receive.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/system/chprio.c",
+		"/Users/max/Projects/baller_shell/parsing_test/bash/README",
+		"/Users/max/Projects/baller_shell/parsing_test/shell_basics/makefile",
+		"/Users/max/Projects/baller_shell/parsing_test/shell_basics/.gitignore",
+		"/Users/max/Projects/baller_shell/parsing_test/shell_basics/shell.l",
+		"/Users/max/Projects/baller_shell/parsing_test/wtf/example1.4",
+		"/Users/max/Projects/baller_shell/parsing_test/naddya",
+		"/Users/max/Projects/baller_shell/naddya.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/system/send.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/system/read.c",
+		"/Users/max/Projects/baller_shell/experiments/syscall.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 2/prototypes.h",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/users/config/users.client.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/routes/events.server.routes.js",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/app/controllers/events.server.controller.js",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 2/main.c",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/calendar/services/events.client.service.js",
+		"/Users/max/Desktop/random.txt",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/public/modules/calendar/calendar.client.module.js",
+		"/Users/max/Library/Application Support/Sublime Text 3/Packages/User/Preferences.sublime-settings",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/mongo-fixtures/events.json",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/gruntfile.js",
+		"/Users/max/.ssh/id_rsa.pub",
+		"/Users/max/Projects/Blackbelt Project/blackbelt/mongo-fixtures/users.json",
+		"/Users/max/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/max/Projects/Blackbelt Project/id_rsa.pub",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 1/Part 2/main.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/minicom2.cap",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/minicom3.cap",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/minicom.cap",
+		"/Users/max/Desktop/partIII_main.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 1/Part 1/main.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/Labs/Lab 1/Part 2/partIII_main.c",
+		"/Users/max/Dropbox/School/Spring 2015/COP4600/xinu/xinu-x86-vm/include/xinu.h",
+		"/Users/max/Downloads/KMSpico 9.1.3 Final/ReadMe KMSpico Install.txt",
+		"/Users/max/MEAN.js/reddit_clone/README.md",
+		"/Users/max/Downloads/meanjs-mean-bde2412/README.md",
+		"/Users/max/Desktop/Windows CD Key 2.txt",
+		"/Volumes/Files/Desktop/Max and Naddya New Minecraft Server/Minecraft Commands.txt",
+		"/Users/max/Downloads/hackmii_installer_v1.2/LICENSE.txt",
+		"/Users/max/Downloads/hackmii_installer_v1.2/CREDITS.txt",
+		"/Users/max/Downloads/hackmii_installer_v1.2/README.txt",
+		"/Users/max/Downloads/hackmii_installer_v1.2/README-HBC.txt",
+		"/Users/max/Downloads/hackmii_installer_v1.2/README-BootMii.txt",
+		"/Users/max/Downloads/LetterBomb/README.txt",
+		"/Users/max/Documents/Naddya Wi-Fi Password",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/project_2V/instructions.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/1_2 Hash Distribution/GNU_Plot/3119_plot.gnu_plot",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/project_2V/Work Products/1_1 Hash Time/GNU_Plot_Scripts/whiskerplot.plot_script",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/project_2V/Work Products/1_1 Hash Time/GNU_Plot_Scripts/Function1_Data_Plot.plot_script",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/project_2V/Work Products/1_1 Hash Time/run_tests.sh",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/project_2V/Work Products/1_1 Hash Time/Code/line_hash.cpp",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input_Sizes/localities-coords.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Given Data Sets/localities/localities-coords.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input_Sizes/war-and-peace_tolstoi-unique.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input_Sizes/war-and-peace_tolstoi.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input_Sizes/aeneid_vergil.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input_Sizes/aeneid_vergil-unique.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input Files/war-and-peace_tolstoi-unique.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input Files/aeneid_vergil-unique-1.txt",
+		"/Users/max/Dropbox/School/Fall 2014/COP3530/Project 2 Part V/Workspaces/2/Input Files/aeneid_vergil-unique.txt"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			"/Users/max/Projects/baller_shell/main_shell",
+			"/Users/max/Projects/Blackbelt Project/blackbelt",
+			"/Users/max/Projects/Blackbelt Project/blackbelt/public",
+			"/Users/max/Projects/Blackbelt Project/blackbelt/app",
+			"/Users/max/Projects/Blackbelt Project/blackbelt",
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"ALIAS",
+			"env",
+			"redirection_in",
+			"alias",
+			"fork",
+			"STD",
+			"STDI",
+			"return",
+			"EOF",
+			"exe",
+			"is_redirecting_input()",
+			">\n",
+			"pipe",
+			"error_path_search",
+			";\n",
+			"();\n",
+			"command_type",
+			"();\n",
+			"service",
+			"purchase",
+			"color",
+			"course",
+			"lesson.",
+			"create",
+			"5500a8d8d21dec690fc66fe4",
+			"courses/lessons",
+			"courses/lessons/courseId",
+			"post",
+			"/courses/lessons",
+			"stateparams",
+			"create",
+			"list",
+			"statepar",
+			"/courses",
+			"route",
+			"/lesson",
+			"/lessons",
+			"create",
+			"/error/lesson",
+			"/error",
+			"error",
+			"remove",
+			"CoursesRemoveController",
+			"remove",
+			"this.name",
+			"create",
+			"courses/create",
+			"/create",
+			"create",
+			"course",
+			"parsed\n",
+			");\n",
+			"REL_PATH",
+			"ABS_PATH",
+			"cd",
+			";\n",
+			"command_curr",
+			"fgets",
+			";\n",
+			"end_command",
+			"start_command",
+			"remove",
+			"courses",
+			"delete",
+			"conflicting",
+			"purchased",
+			"purchase",
+			"push",
+			"purchaseCour",
+			"update",
+			"save",
+			"update",
+			"Courses.get",
+			" progress-bar-striped",
+			"sleep",
+			"’",
+			"instead",
+			"’",
+			">\n",
+			"command_path",
+			"cd",
+			"sort_files",
+			"cwd",
+			"print_file_name_and",
+			"print_many",
+			"print_cu",
+			"cwd",
+			"active_dir_set",
+			"dir",
+			"pwd",
+			"getenv",
+			"genenv",
+			"active_dir",
+			"align",
+			"sendMsg",
+			"enqueues",
+			"days",
+			"\"",
+			"list",
+			"mongo",
+			"-> 0",
+			"-> 4",
+			"-> 3",
+			"-> ",
+			"->",
+			"seconds",
+			"wait",
+			"enqueue",
+			"dequeue",
+			"eating[",
+			"eating",
+			"eat",
+			"signal( ea",
+			"wait(",
+			"eat_waiting",
+			"eating",
+			"printf",
+			"dequeue",
+			"enqueue",
+			"sreset",
+			"srese",
+			"dequeue",
+			"enqueue",
+			"NUM_OF_PHILOSOPHERS - ",
+			"NUM_OF_PHILOSOPHERS - 1",
+			"Reso",
+			"CURRENT_OUTPUT_PATH",
+			"FILENAME"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"PATH_REL",
+			"PATH_ABS",
+			"command_end",
+			"command_start",
+			"",
+			"'",
+			"CURRENT_TRIAL_PATH",
+			"FILE_PATH",
+			"KEY",
+			"",
+			"; //",
+			"SECTION",
+			"CHECK_FALSE",
+			"REQUIRE",
+			"CHECK",
+			"REQUIRE",
+			"",
+			"TEST_CASE",
+			"SDAL",
+			"part3_array_d_start",
+			"part3_array_c_start",
+			"part2_array_d_start",
+			"part2_array_c_start",
+			"part1_array_middle",
+			"part1_array_b_start",
+			"part1_array_a_start",
+			"3_array_d_start",
+			"3_array_c_start",
+			"2_array_d_start",
+			"2_array_c_start",
+			"1_array_middle",
+			"1array_middle",
+			"1_array_a_start",
+			"1_array_b_start",
+			"1array_a_start"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 8,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "shell.l",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 986,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								523,
+								523
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "shell.y",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3347,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								553,
+								553
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 494.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "builtins.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1962,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1911,
+								1911
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 362.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "builtins.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3182,
+								3182
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3177.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "commands.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 7701,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3846,
+								3846
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2440.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "errors.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 525,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								516,
+								472
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "errors.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1002,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								996,
+								996
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 56.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "makefile",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 477,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								373,
+								373
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Makefile/Makefile.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "string_manipulation.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1039,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								434,
+								434
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "string_manipulation.c",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1928,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1819,
+								1819
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 686.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 26.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 70.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "shell.sublime-project",
+	"replace":
+	{
+		"height": 48.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 187.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+		"max_columns": 1
+	}
+}

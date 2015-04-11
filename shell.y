@@ -61,7 +61,8 @@ int main()
 		switch( yyparse() )
 		{
 			case 1:
-				run_commands();
+				if( !cmd_errr )
+					run_commands();
 				clear_commands();
 				break;
 			case SHELL_EXIT:

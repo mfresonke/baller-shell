@@ -2,6 +2,7 @@
 
 struct Alias *aliases[MAX_ALIASES];
 size_t alias_count = 0;
+bool *alias_used = NULL;
 
 char* get_cd()
 {
@@ -175,11 +176,12 @@ char* apply_aliases( char *input_raw )
 	int b;
 	char *input = input_raw;
 
-	//make a bool array that will keep track if we used a particular alias (to detect recursion)
-	bool alias_used[MAX_ALIASES];
-	//make all needed values false
-	for( a = 0; a != alias_count; ++a )
-		alias_used[a] = false;
+	//setup the alias used variable if it isn't already.
+	if( !alias_used )
+	{
+		//create a new zeroed out bool array.
+		alias_used = calloc( alias_count, sizeof( bool ) );
+	}
 
 	//for each alias...
 	for( a = 0; a != alias_count; ++a )
@@ -217,7 +219,7 @@ char* apply_aliases( char *input_raw )
 				if( alias_used[a] )
 				{
 					warn_alias_loop_detected();
-					break;
+					return NULL;
 				}
 				
 				//otherwise...
@@ -239,8 +241,71 @@ char* apply_aliases( char *input_raw )
 	}
 	else
 	{
+		free( alias_used );
 		return input;
 	}
 }
+
+char* apply_aliases( char *input_raw )
+{
+	int a;
+	int b;
+	char *input = input_raw;
+
+	//setup the alias used variable if it isn't already.
+	if( !alias_used )
+	{
+		//create a new zeroed out bool array.
+		alias_used = calloc( alias_count, sizeof( bool ) );
+	}
+
+	//for each alias...
+	for( a = 0; a != alias_count; ++a )
+	{
+		size_t input_length = strlen( input );
+		char *alias_name = aliases[a]->name;
+		size_t alias_length = strlen( alias_name );
+		//used to account for possible spaces at the beginning of input.
+		size_t offset = 0;
+		
+
+			//if we are at the end of the alias_name...
+			if( alias_index == ( alias_length-1 ) )
+			{
+				//then we have successfully found the alias! 
+
+				//check if recursive loop
+				if( alias_used[a] )
+				{
+					warn_alias_loop_detected();
+					return NULL;
+				}
+				
+				//otherwise...
+
+				//set it as used
+				alias_used[a] = true;
+
+				//Replace it with a command!
+				char *input_new = replace_text( input, offset, b, aliases[a]->command );
+				free( input );
+				input = input_new;
+			}
+		}
+	}
+	//if our input has changed, we need to run this function again until it no longer detects any changes.
+	if( input_raw != input )
+	{
+		return apply_aliases( input );
+	}
+	else
+	{
+		free( alias_used );
+		return input;
+	}
+}
+
+
+
 
 
