@@ -25,4 +25,9 @@ char* path_rel_to_abs( char *path_rel );
 /** replaces the text from "index_start" to "index_end" with the text specified in "replacement". */
 char* replace_text( char *original, size_t replace_start, size_t replace_end, char *replacement );
 
+/** Does the same thing as above, except it takes in pointers. replace_start & replace_end MUST BE PART OF str_orig! */
+char* replace_text_pointers( char *str_orig, char *replace_start, char *replace_end, char *str_rep );
+
+int get_char_pointer_index( char *str, char *search );
+
 #endif

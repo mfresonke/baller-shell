@@ -5,6 +5,8 @@
 #define MAX_ALIASES 200
 #define ALIAS_NOT_FOUND -1
 #define ALIAS_DELIMITERS " \"\n"
+#define ENV_TOKEN_START "${"
+#define ENV_TOKEN_END "}"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -65,5 +67,6 @@ int alias_search( char *name );
 char* run_preparser( char *input );
 
 char* search_and_apply_aliases( char *input );
+char* search_and_apply_env_vars( char *input );
 
 #endif

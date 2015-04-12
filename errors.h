@@ -22,5 +22,7 @@ void error_redirect_output( char *reason );
 void error_alias_not_exist( char *name );
 void error_applying_aliases( char *reason );
 
+void error_env_var_not_found( char *env_var );
+
 
 #endif
