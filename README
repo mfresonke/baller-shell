@@ -1,0 +1,84 @@
+README
+
+Group Members: Max Fresonke and Brent Lewis
+
+
+      ****FEATURES NOT IMPLEMENTED****
+
+-OTHER COMMANDS:
+
+&
+input redirection and piping does not work on builtin commands
+
+-EXTRA CREDIT
+
+file name completion
+
+-MISCELLANEOUS 
+
+space after input redirect. 
+
+Example:
+
+
+
+
+        ****IMPLEMENTED FEATURES****
+
+-BUILT-IN COMMANDS:
+
+cd
+bye
+alias
+unalias
+setenv
+printenv
+unsetenv
+
+-OTHER COMMANDS:
+
+<
+>
+>>
+2 > filename
+2 > &1
+
+input/output redirection works for all other commands and files
+piping works for all other commands
+
+PATH searching fully working and does not invoke another shell to perform
+the operation. execvp is NOT used.
+
+-ALIAS:
+
+alias
+alias name word
+unalias name
+
+
+-ENVIRONMENT VARIABLE EXPANSION
+
+&{variable name} works!
+
+-WILDCARD MATCHING:
+
+*
+?
+
+-EXTRA CREDIT
+
+tilda expansion
+
+-ERROR HANDLING:
+
+/* Our errors provide insightful information */
+
+cd error checking - this does not execute the directory change
+
+alias error checking - prevents too many arguments being passed
+
+environment variable manipulation error checking - checks that the 
+
+-MISCELLANEOUS 
+
+quotes -“ “ work!
