@@ -6,6 +6,15 @@ bool *alias_used = NULL;
 char *expansions[MAX_WILDCARD_RESULTS] = { NULL };
 size_t expansion_count = 0;
 
+void sigintHandler(int sig_num)
+{
+    /* Reset handler to catch SIGINT next time.
+       Refer http://en.cppreference.com/w/c/program/signal */
+    signal(SIGINT, sigintHandler);
+
+    //fflush(stdout);
+}
+
 char* get_cd()
 {
 	//TODO make this better

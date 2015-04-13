@@ -32,11 +32,13 @@ void print_prompt()
 
 int main()
 {
-	//setup operations
+	//prevent shell from terminating
+	signal(SIGINT, sigintHandler);
 
 	//main loop
 	for(;;) 
 	{
+
 		print_prompt();
 
 		//take in input to string
