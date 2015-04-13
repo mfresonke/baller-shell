@@ -7,8 +7,10 @@ Group Members: Max Fresonke and Brent Lewis
 
 -OTHER COMMANDS:
 
-&
-input redirection and piping does not work on builtin commands
+& - does not work with builtins
+ 
+input redirection and piping for builtin commands
+
 
 -EXTRA CREDIT
 
@@ -40,9 +42,10 @@ unsetenv
 
 -OTHER COMMANDS:
 
-<
->
->>
+&
+<	input redirect
+>	output overwrite redirection
+>>	output append redirection
 2 > filename
 2 > &1
 
@@ -50,7 +53,7 @@ input/output redirection works for all other commands and files
 piping works for all other commands
 
 PATH searching fully working and does not invoke another shell to perform
-the operation. execvp is NOT used.
+the operation. execvp is NOT used. **should get extra credit :) **
 
 -ALIAS:
 
@@ -70,7 +73,7 @@ unalias name
 
 -EXTRA CREDIT
 
-tilda expansion
+~ tilda expansion
 
 -ERROR HANDLING:
 
@@ -80,7 +83,10 @@ cd error checking - this does not execute the directory change
 
 alias error checking - prevents too many arguments being passed
 
-environment variable manipulation error checking - checks that the 
+environment variable manipulation error checking - checks that the number of arguments
+are correct
+
+I/O redirection error checking - ensures only one file is passed
 
 -MISCELLANEOUS 
 
