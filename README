@@ -16,10 +16,13 @@ file name completion
 
 -MISCELLANEOUS 
 
-space after input redirect. 
+output file next to redirect arrow does not work
 
 Example:
 
+2>output.txt does not work but,
+
+2> output.txt DOES work.
 
 
 
