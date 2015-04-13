@@ -75,6 +75,8 @@ extern char *expansions[MAX_WILDCARD_RESULTS];
 extern size_t expansion_count;
 
 void wildcard_comand_args( char *input );
+char* wildcard_single_arg( char *input );
+void wildcard_cd( char *input );
 
 /* ========= Begin Pre-parse Structure ======= */
 

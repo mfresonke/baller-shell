@@ -52,13 +52,13 @@ int main()
 			continue;
 		}
 
-		while( ( strlen(input) > 1 ) && ( input[ strlen(input) - 2 ] == '\\' ) )
+		char *input_add = input;
+		while( ( strlen(input) > 1 ) && ( input_add[ strlen(input_add) - 2 ] == '\\' ) )
 		{
-			char *input_add = calloc( sizeof(char), MAX_LINE_SIZE );
+			input_add = calloc( sizeof(char), MAX_LINE_SIZE );
 			fgets( input_add, MAX_LINE_SIZE, stdin );
 			strcat( input, input_add );
-			free( input_add );
-			input_add = NULL;
+			input_add = input;
 		}
 
 		//get rid of any forward whitespace
@@ -172,7 +172,11 @@ builtin:
 	;
 
 cd:
-	BI_CD PATH_ABS
+	BI_CD WILDCARD
+	{
+		wildcard_cd( $2 );
+	}
+	| BI_CD PATH_ABS
 	{
 		cd( $2 );
 	}
@@ -249,6 +253,10 @@ alias:
 	{
 		alias_set( $2, $3 );
 	}
+	BI_ALIAS WORD WILDCARD
+	{
+		alias_set( $2, $3 );
+	}	
 	| BI_ALIAS //prints all aliases
 	{
 		alias_print();
@@ -298,18 +306,20 @@ command:
 command_arguments:
 	| command_arguments argument
 	{
-		add_arg( $2 );
+		if( command_start )
+			add_arg( $2 );
 	}
 	| command_arguments WILDCARD
 	{
-		wildcard_comand_args( $2 );
+		if( command_start )
+			wildcard_comand_args( $2 );
 	}
 	;
 
 pipe:
 	| pipe PIPE_NEXT command command_arguments
 	//error checking
-	| PIPE_NEXT error
+	| pipe PIPE_NEXT error
 	{
 		printf( "pipe command requires a valid argument!\n" ); 
 		return(SYNTAX_ERROR);

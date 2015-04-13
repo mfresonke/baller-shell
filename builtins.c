@@ -11,8 +11,6 @@ void sigintHandler(int sig_num)
     /* Reset handler to catch SIGINT next time.
        Refer http://en.cppreference.com/w/c/program/signal */
     signal(SIGINT, sigintHandler);
-
-    //fflush(stdout);
 }
 
 char* get_cd()
@@ -185,8 +183,6 @@ char* run_preparser( char *input )
 {
 	if( !input )
 		return NULL;
-	while( input[0] == ' ' )
-		++input;
 	input = search_and_apply_aliases( input );
 	if( !input )
 		return NULL;
@@ -308,13 +304,33 @@ void wildcard_comand_args( char *input )
 	size_t   glob_count = globs.gl_pathc;
     char   **glob_results = globs.gl_pathv;
 
-    //make a new string
-    char line[MAX_LINE_SIZE] = { '\0' };
     size_t a;
     for( a = 0; a != glob_count; ++a )
     {
     	add_arg( glob_results[a] );
     }
+}
+
+char* wildcard_single_arg( char *input )
+{
+	glob_t globs;
+	glob( input, GLOB_NOCHECK | GLOB_TILDE, NULL, &globs );
+	size_t   glob_count = globs.gl_pathc;
+    char   **glob_results = globs.gl_pathv;
+
+    if( glob_count > 1 || glob_count < 1 )
+    	return NULL;
+
+    return glob_results[0];
+}
+
+void wildcard_cd( char *input )
+{
+	char *dir = wildcard_single_arg( input );
+	if( dir )
+		cd(dir);
+	else
+		error_invalid_wildcard();
 }
 
 

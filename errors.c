@@ -60,3 +60,8 @@ void error_env_var_not_found( char *env_var )
 {
 	printf( "Error! Could not find enviornment variable \"%s\"!\n", env_var );
 }
+
+void error_invalid_wildcard()
+{
+	printf( "Error! Wildcard invalid!\n" );
+}

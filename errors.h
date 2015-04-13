@@ -24,5 +24,7 @@ void error_applying_aliases( char *reason );
 
 void error_env_var_not_found( char *env_var );
 
+void error_invalid_wildcard();
+
 
 #endif
