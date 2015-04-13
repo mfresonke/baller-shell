@@ -45,8 +45,29 @@ int main()
 		{
 			error_retrieving_line_of_input_failed();
 			//skip to the next loop iteration
+			free( input );
+			input = NULL;
 			continue;
 		}
+
+		while( ( strlen(input) > 1 ) && ( input[ strlen(input) - 2 ] == '\\' ) )
+		{
+			char *input_add = calloc( sizeof(char), MAX_LINE_SIZE );
+			fgets( input_add, MAX_LINE_SIZE, stdin );
+			strcat( input, input_add );
+			free( input_add );
+			input_add = NULL;
+		}
+
+		//get rid of any forward whitespace
+		char *input_no_whitespace = input;
+		while( input_no_whitespace[0] == ' ' )
+		{
+			++input_no_whitespace;
+		}
+		input_no_whitespace = strdup( input_no_whitespace );
+		free( input );
+		input = input_no_whitespace;
 
 		input = run_preparser( input );
 
@@ -75,6 +96,8 @@ int main()
 
 		//delete buffer
 		yy_delete_buffer( buffer );
+		free( input );
+		input = NULL;
 	}
 }
 
@@ -104,9 +127,9 @@ int main()
 /* Common to All Types */
 
 input:
+	| command_end
 	| builtin command_end
 	| command command_arguments pipe redirections command_end
-	| END_OF_FILE
 	{
 		exit(1);
 	}
