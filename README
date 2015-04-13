@@ -9,22 +9,12 @@ Group Members: Max Fresonke and Brent Lewis
 
 & - does not work with builtins
  
-input redirection and piping for builtin commands
+i/o redirect with builtins
 
 
 -EXTRA CREDIT
 
 file name completion
-
--MISCELLANEOUS 
-
-output file next to redirect arrow does not work
-
-Example:
-
-2>output.txt does not work but,
-
-2> output.txt DOES work.
 
 
 
