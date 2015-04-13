@@ -70,7 +70,7 @@ int alias_search( char *name );
 extern char *expansions[MAX_WILDCARD_RESULTS];
 extern size_t expansion_count;
 
-void expand_wildcard( char *input );
+void wildcard_comand_args( char *input );
 
 /* ========= Begin Pre-parse Structure ======= */
 

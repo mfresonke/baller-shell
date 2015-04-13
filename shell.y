@@ -275,6 +275,10 @@ command_arguments:
 	{
 		add_arg( $2 );
 	}
+	| command_arguments WILDCARD
+	{
+		wildcard_comand_args( $2 );
+	}
 	;
 
 pipe:
