@@ -1,5 +1,6 @@
 %{
 #define SHELL_EXIT -5
+#define SYNTAX_ERROR -1
 #define MAX_LINE_SIZE 1000
 
 #include "shell.lex.h"
@@ -161,6 +162,22 @@ cd:
 	{
 		cd_home();
 	}
+	//error checking
+	| BI_CD PATH_ABS error 
+	{ 
+		printf( "cd accepts only one argument!\n" );
+		return(SYNTAX_ERROR); 
+	}
+	| BI_CD PATH_REL error 
+	{ 
+		printf( "cd accepts only one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
+	| BI_CD WORD error 
+	{ 
+		printf( "cd accepts only one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
 	;
 
 bye:
@@ -183,13 +200,21 @@ environment:
 	{
 		env_unset( $2 );
 	}
+	//error checking
 	| BI_ENV_SET error 
 	{ 
 		printf( "setenv requires two arguments!\n" ); 
+		return(SYNTAX_ERROR);
 	}
 	| BI_ENV_UNSET error 
 	{ 
 		printf( "usetenv requires one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
+	| BI_ENV_PRINT error 
+	{ 
+		printf( "printenv accepts no arguments!\n" ); 
+		return(SYNTAX_ERROR);
 	}
 	;
 
@@ -206,13 +231,21 @@ alias:
 	{
 		alias_unset( $2 );
 	}
+	//error checking
 	| BI_ALIAS error
 	{
 		printf( "alias requires two arguments!\n" ); 
+		return(SYNTAX_ERROR);
 	}
 	| BI_ALIAS_UNSET error
 	{
 		printf( "unalias requires one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
+	| BI_ALIAS WORD argument error
+	{
+		printf( "alias requires one argument!\n" ); 
+		return(SYNTAX_ERROR);
 	}
 	;
 
@@ -245,6 +278,12 @@ command_arguments:
 
 pipe:
 	| pipe PIPE_NEXT command command_arguments
+	//error checking
+	| PIPE_NEXT error
+	{
+		printf( "pipe command requires a valid argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
 	;
 
 /* Redirection Command Handling */
@@ -258,6 +297,12 @@ redirection_input:
 	{
 		redirect_input_setup( $2 );
 	}
+	//error checking
+	| REDIR_STDIN argument error
+	{
+		printf( "alias requires one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
 	;
 
 redirection_output_std:
@@ -269,6 +314,17 @@ redirection_output_std:
 	{
 		redirect_output_overwrite_setup( $2 );
 	}
+	//error checking
+	| REDIR_STDOUT_APPEND argument error
+	{
+		printf( "output redirect accepts only one file!\n" ); 
+		return(SYNTAX_ERROR);
+	}
+	| REDIR_STDOUT_OVERWRITE argument error
+	{
+		printf( "output redirect accepts only one file!\n" ); 
+		return(SYNTAX_ERROR);
+	}
 	;
 
 redirection_output_err:
@@ -276,5 +332,16 @@ redirection_output_err:
 	| REDIR_STDERR_FILE WORD
 	{
 		redirect_stderr_file_setup( $2 );
+	}
+	//error checking
+	| REDIR_STDERR_STDIN error
+	{
+		printf( "standard error redirect accepts only one argument!\n" ); 
+		return(SYNTAX_ERROR);
+	}
+	| REDIR_STDERR_FILE WORD error
+	{
+		printf( "standard error redirect accepts only one file!\n" ); 
+		return(SYNTAX_ERROR);
 	}
 	;

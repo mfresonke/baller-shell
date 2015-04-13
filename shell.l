@@ -15,7 +15,7 @@ FILE_CHARS	[\/]
 <<EOF>>								return END_OF_FILE;
 &									return AND;
 \|									return PIPE_NEXT;
-2\>[ ]+\&1								return REDIR_STDERR_STDIN;
+2\>[ ]+\&1							return REDIR_STDERR_STDIN;
 2\>									return REDIR_STDERR_FILE;
 \<									return REDIR_STDIN;
 \>\>								return REDIR_STDOUT_APPEND;
