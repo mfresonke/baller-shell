@@ -3,6 +3,8 @@
 struct Alias *aliases[MAX_ALIASES];
 size_t alias_count = 0;
 bool *alias_used = NULL;
+char *expansions[MAX_WILDCARD_RESULTS] = { NULL };
+size_t expansion_count = 0;
 
 void sigintHandler(int sig_num)
 {
@@ -291,6 +293,23 @@ char* search_and_apply_env_vars( char *input )
 		}
 	}
 	return input;
+}
+
+
+void wildcard_comand_args( char *input )
+{
+	glob_t globs;
+	glob( input, GLOB_NOCHECK | GLOB_TILDE, NULL, &globs );
+	size_t   glob_count = globs.gl_pathc;
+    char   **glob_results = globs.gl_pathv;
+
+    //make a new string
+    char line[MAX_LINE_SIZE] = { '\0' };
+    size_t a;
+    for( a = 0; a != glob_count; ++a )
+    {
+    	add_arg( glob_results[a] );
+    }
 }
 
 

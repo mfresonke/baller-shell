@@ -30,6 +30,8 @@ bye									return BI_BYE;
 printenv							return BI_ENV_PRINT;
 setenv								return BI_ENV_SET;
 unsetenv							return BI_ENV_UNSET;
+(({WORD})*(\*)+({WORD}*))+			yylval.string=strdup(yytext); return WILDCARD;
+(({WORD})*(\?)+({WORD}*))+			yylval.string=strdup(yytext); return WILDCARD;
 \.\/({WORD})*						yylval.string=strdup(yytext); return PATH_REL;
 \/({WORD})*							yylval.string=strdup(yytext); return PATH_ABS; 
 ({WORD})+							yylval.string=strdup(yytext); return WORD;

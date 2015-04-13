@@ -122,6 +122,22 @@ int get_char_pointer_index( char *str, char *search )
 	return -1;
 }
 
+char* new_string_from_pointers( char *start, char *end )
+{
+	char *curr = start;
+	size_t count = 0;
 
+	while( curr < end )
+	{
+		++count;
+		++curr;
+	}
+
+	//allocate new string
+	char *str = calloc( count + 1, sizeof( char ) );
+	strncpy( str, start, count );
+
+	return str;
+}
 
 

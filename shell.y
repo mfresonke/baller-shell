@@ -96,6 +96,7 @@ int main()
 %token <string> WORD 
 %token <string> PATH_ABS 
 %token <string> PATH_REL 
+%token <string> WILDCARD 
 
 %type <string> argument
 
@@ -275,6 +276,10 @@ command_arguments:
 	| command_arguments argument
 	{
 		add_arg( $2 );
+	}
+	| command_arguments WILDCARD
+	{
+		wildcard_comand_args( $2 );
 	}
 	;
 

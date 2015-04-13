@@ -7,6 +7,8 @@
 #define ALIAS_DELIMITERS " \"\n"
 #define ENV_TOKEN_START "${"
 #define ENV_TOKEN_END "}"
+#define MAX_WILDCARD_RESULTS 200
+#define MAX_LINE_SIZE 1000
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -16,6 +18,8 @@
 #include "commands.h"
 #include "string_manipulation.h"
 #include "errors.h"
+#include <glob.h>
+#include "shell.lex.h"
 
 //system variable which stores the list of
 //environment variables
@@ -64,6 +68,13 @@ void alias_unset( char *name );
 
 /** Searches for an alias of name "name". Returns index if found, ALIAS_NOT_FOUND if not found. */
 int alias_search( char *name );
+
+/* ========= Begin Wildcard Stucture ======= */
+
+extern char *expansions[MAX_WILDCARD_RESULTS];
+extern size_t expansion_count;
+
+void wildcard_comand_args( char *input );
 
 /* ========= Begin Pre-parse Structure ======= */
 

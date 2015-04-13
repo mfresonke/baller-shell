@@ -30,4 +30,9 @@ char* replace_text_pointers( char *str_orig, char *replace_start, char *replace_
 
 int get_char_pointer_index( char *str, char *search );
 
+/** Creates a new string from start to end, inclusive. */
+char* new_string_from_pointers( char *start, char *end );
+
+
+
 #endif
