@@ -104,10 +104,6 @@ int main()
 /* Common to All Types */
 
 input:
-	| WILDCARD
-	{
-		expand_wildcard( $1 );
-	}
 	| builtin command_end
 	| command command_arguments pipe redirections command_end
 	| END_OF_FILE
