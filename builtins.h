@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <signal.h>
 #include "commands.h"
 #include "string_manipulation.h"
 #include "errors.h"
@@ -19,6 +20,9 @@
 //system variable which stores the list of
 //environment variables
 extern char **environ;
+
+/** Prevents program from terminating with Ctrl+C */
+void sigintHandler(int sig_num);
 
 /** Gets the current working directory. */
 char* get_cd();

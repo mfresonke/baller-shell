@@ -4,6 +4,15 @@ struct Alias *aliases[MAX_ALIASES];
 size_t alias_count = 0;
 bool *alias_used = NULL;
 
+void sigintHandler(int sig_num)
+{
+    /* Reset handler to catch SIGINT next time.
+       Refer http://en.cppreference.com/w/c/program/signal */
+    signal(SIGINT, sigintHandler);
+
+    //fflush(stdout);
+}
+
 char* get_cd()
 {
 	//TODO make this better
